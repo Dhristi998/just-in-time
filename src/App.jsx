@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxQ3pZJ9pPas7i7CD4Q587iCViF2OM9bb7tNXU-S42kdve7UZQgUezf7MNdGHZdeP11/exec'
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbynTVyf4AnHuK7cc0TcaTL-IG_eyNuBLY_1kCzynH1U3jDe3UTujVik611UxW86Bomb8Q/exec'
 
 async function submitToSheets(form) {
   try {
@@ -15,21 +15,139 @@ async function submitToSheets(form) {
   }
 }
 
-const MENU_ITEMS = [
-  { id: 1, name: 'Breakfast Wraps', cat: 'breakfast' },
-  { id: 2, name: 'Sandwiches', cat: 'breakfast' },
-  { id: 3, name: 'Eggs (any style)', cat: 'breakfast' },
-  { id: 4, name: 'Varieties of Omlettes', cat: 'breakfast' },
-  { id: 5, name: 'Waffles', cat: 'breakfast' },
-  { id: 6, name: 'Pancakes', cat: 'breakfast' },
-  { id: 7, name: 'French Toast', cat: 'breakfast' },
-  { id: 8, name: 'Hot Table -> Hash Browns, Sausage & Bacons, Healthy Snacks, Coffee station', cat: 'breakfast' },
-  { id: 9, name: 'Salad Bar, Caesar Salad & 3 Chefs Choice Salad', cat: 'lunch' },
-  { id: 10, name: 'Soup of the Day (chefs choice)', cat: 'lunch' },
-  { id: 11, name: 'Hot Buffet-> 2 Non-Vegetarian Proteins', cat: 'lunch' },
-  { id: 12, name: 'Hot Buffet-> 1 Vegetarian Protein', cat: 'lunch' },
-  { id: 13, name: 'Hot Buffet-> 2 Vegetables and 2 Different Sides', cat: 'lunch' },
-  { id: 14, name: "Varieties of Desserts", cat: 'lunch' },
+const FILM_MENU = {
+  hot_breakfast: {
+    label: 'Hot Breakfast', icon: '🍳',
+    items: [
+      'Breakfast Sandwich (Egg & Cheese, Choice of Meat)',
+      'Breakfast Burritos (Egg, Cheese, Potato, Choice of Meat)',
+      'Classic Eggs Benedict',
+      'Eggs Any Style',
+      'Farm-Fresh Scrambled Eggs',
+      'Omelet Your Way (Chef-Attended Station Available)',
+      'Egg Whites with Spinach & Tomatoes',
+      'Maple Smoked Bacon',
+      'Turkey Sausage & Pork Sausage Links',
+      'Breakfast Potatoes with Peppers & Onions',
+      'Buttermilk Pancakes with Maple Syrup',
+      'French Toast with Cinnamon Sugar',
+      'Oatmeal Bar with Brown Sugar, Raisins & Nuts',
+    ],
+  },
+  bakery: {
+    label: 'Bakery & Breads', icon: '🥐',
+    items: [
+      'Fresh-Baked Croissants (Butter & Chocolate)',
+      'Assorted Muffins',
+      'Bagels with Cream Cheese (Plain, Chive, Veggie)',
+      'Artisan Toast Selection (White, Wheat, Multigrain)',
+      'English Muffins',
+    ],
+  },
+  healthy: {
+    label: 'Fresh & Healthy', icon: '🥗',
+    items: [
+      'Seasonal Fruit Platter',
+      'Greek Yogurt & Parfait Station (Granola, Berries, Honey)',
+      'Chia Pudding Cups',
+      'Hard-Boiled Eggs',
+      'Avocado Toast Bar',
+    ],
+  },
+  beverages: {
+    label: 'Beverages', icon: '☕',
+    items: [
+      'Freshly Brewed Coffee (Regular & Decaf)',
+      'Selection of Teas',
+      'Fresh Orange & Apple Juice',
+      'Infused Water (Lemon, Cucumber, Mint)',
+      'Assorted Soft Drinks',
+    ],
+  },
+  dietary: {
+    label: 'Dietary-Friendly', icon: '🌱',
+    items: [
+      'Vegan Breakfast Scramble',
+      'Plant-Based Sausage',
+      'Gluten-Free Bread & Pastries',
+      'Dairy-Free Milk Options (Almond, Oat, Soy)',
+    ],
+  },
+  entrees: {
+    label: 'Entrées', icon: '🍽️',
+    items: [
+      'Herb-Crusted Roast Beef — Red wine jus, garlic mashed potatoes, seasonal vegetables',
+      'Lemon Herb Grilled Chicken — Wild rice, roasted market vegetables',
+      'Braised Short Ribs — Creamy polenta, honey-glazed carrots',
+      'Mediterranean Stuffed Chicken — Spinach, feta & sun-dried tomatoes, roasted baby potatoes, grilled zucchini',
+      'Blackened Cajun Salmon — Jasmine rice, sautéed green beans',
+      'Beef Tenderloin Medallions — Mushroom peppercorn sauce, truffle mashed potatoes, asparagus',
+      'Vegetable Lasagna (Vegetarian) — Grilled seasonal vegetables, ricotta, marinara, fresh basil',
+      'Chickpea & Sweet Potato Curry (Vegan) — Coconut curry sauce, basmati rice, warm naan',
+      'Stuffed Bell Peppers (Vegetarian / Vegan Option) — Quinoa, black beans, corn, fresh herbs',
+    ],
+  },
+  soups: {
+    label: 'Soups', icon: '🍲',
+    items: [
+      'Roasted Tomato Basil',
+      'Chicken & Wild Rice',
+      'Cream of Broccoli & Aged Cheddar',
+      'Tuscan White Bean & Sausage',
+      'Thai Coconut Curry (Vegan & Gluten-Free)',
+      'French Onion with Gruyère Crouton',
+    ],
+  },
+  salads: {
+    label: 'Salads', icon: '🥬',
+    items: [
+      'Caesar Salad',
+      'House Green Salad',
+      'Strawberry Spinach & Candied Pecan',
+      'Mediterranean Quinoa',
+      'Apple Walnut & Blue Cheese',
+      'Asian Sesame Slaw',
+      'Caprese Salad',
+      'Southwest Black Bean & Corn',
+    ],
+  },
+  desserts: {
+    label: 'Desserts', icon: '🍰',
+    items: [
+      'Classic New York Cheesecake — Seasonal berry compote',
+      'Chocolate Decadence Cake — Silky ganache, chocolate curls',
+      'Tiramisu — Espresso-soaked ladyfingers, mascarpone cream',
+      'Crème Brûlée — Vanilla bean custard, caramelized sugar crust',
+      'Carrot Cake — Cream cheese frosting, toasted walnuts',
+      'Lemon Tart — Tangy lemon curd, fresh berries',
+    ],
+  },
+}
+
+const ALL_SPOTLIGHT = [
+  { name: 'Classic Eggs Benedict', cat: 'Hot Breakfast' },
+  { name: 'Buttermilk Pancakes with Maple Syrup', cat: 'Hot Breakfast' },
+  { name: 'Fresh-Baked Croissants (Butter & Chocolate)', cat: 'Bakery & Breads' },
+  { name: 'Greek Yogurt & Parfait Station (Granola, Berries, Honey)', cat: 'Fresh & Healthy' },
+  { name: 'Freshly Brewed Coffee (Regular & Decaf)', cat: 'Beverages' },
+  { name: 'Lemon Herb Grilled Chicken — Wild rice, roasted market vegetables', cat: 'Entrées' },
+  { name: 'Roasted Tomato Basil', cat: 'Soups' },
+  { name: 'Caesar Salad', cat: 'Salads' },
+  { name: 'Chickpea & Sweet Potato Curry (Vegan)', cat: 'Entrées' },
+  { name: 'Chocolate Decadence Cake — Silky ganache, chocolate curls', cat: 'Desserts' },
+]
+
+const TOGGLE_TABS = [
+  { key: 'all', label: 'All' },
+  { key: 'hot_breakfast', label: 'Hot Breakfast' },
+  { key: 'bakery', label: 'Bakery & Breads' },
+  { key: 'healthy', label: 'Fresh & Healthy' },
+  { key: 'beverages', label: 'Beverages' },
+  { key: 'dietary', label: 'Dietary-Friendly' },
+  { key: 'entrees', label: 'Entrées' },
+  { key: 'soups', label: 'Soups' },
+  { key: 'salads', label: 'Salads' },
+  { key: 'desserts', label: 'Desserts' },
 ]
 
 const GALLERY = [
@@ -45,19 +163,41 @@ const GALLERY = [
   { id: 10, src: '/new (11).png', alt: 'Salad bar outdoor' },
   { id: 11, src: '/new (12).png', alt: 'Vegetarian stacks' },
   { id: 12, src: '/new (13).png', alt: 'Dessert table' },
-  { id: 13, src: '/new (15).png', alt: 'Team at event' },
+  { id: 13, src: '/new (10).png', alt: 'Team at event' },
   { id: 14, src: '/new (16).png', alt: 'Veggie & fruit board' },
   { id: 15, src: '/new (17).png', alt: 'Truck rainbow' },
 ]
 
-const BUBBLES = [
-  { src: '/fm (1).png', alt: 'Hot Buffet Vegetarian' },
-  { src: '/fm (2).png', alt: 'Waffles' },
-  { src: '/fm (3).png', alt: 'French Toast' },
-  { src: '/fm (4).png', alt: 'Hot Table Breakfast' },
-  { src: '/fm (5).png', alt: 'Soup of the Day' },
-  { src: '/fm (6).png', alt: 'Soup Chef Choice' },
-  { src: '/fm (7).png', alt: 'Hot Buffet Non-Veg' },
+const FM_IMAGES = [
+  { src: '/fm (1).avif', alt: 'Hot Buffet Vegetarian' },
+  { src: '/fm (2).webp', alt: 'Waffles' },
+  { src: '/fm (3).webp', alt: 'French Toast' },
+  { src: '/fm (4).webp', alt: 'Hot Table Breakfast' },
+  { src: '/fm(5).webp', alt: 'Soup of the Day' },
+  { src: '/ha.webp', alt: 'Soup Chef Choice' },
+  { src: '/fm.png', alt: 'Hot Buffet Non-Veg' },
+]
+
+const FILM_CREDITS = [
+  { title: 'A Nice Indian Boy', type: 'Feature' },
+  { title: 'Fire Country', type: '2nd Unit' },
+  { title: 'Ludwig', type: 'Season 3, 2nd Unit' },
+  { title: "It's a Wonderful Knife", type: 'Feature' },
+  { title: 'Cold Copy', type: 'Feature' },
+  { title: 'Christmas on Candy Cane Lane', type: 'Feature' },
+  { title: 'It Lives Inside', type: 'Feature' },
+  { title: 'Fit for Christmas', type: 'Feature' },
+  { title: 'I Will Survive', type: 'Feature' },
+  { title: 'A Family Affair', type: 'Feature' },
+  { title: 'Christmas Crashers', type: 'Feature' },
+  { title: 'Camp Miasma', type: 'Feature – Vancouver Island' },
+  { title: 'The Best Is Yet to Come', type: 'Feature' },
+  { title: 'Karen Read', type: 'Feature' },
+  { title: 'Rags 2 Richmond', type: 'Feature' },
+]
+
+const LIVE_EVENTS = [
+  { title: 'Vancouver Folk Music Festival', type: '2025' },
 ]
 
 const STEPS = ['Service', 'Cuisine', 'Meal Prefs', 'Guests', 'Date & Time', 'Location', 'Budget', 'Contact']
@@ -76,6 +216,7 @@ body {
 ::-webkit-scrollbar-track { background: #111; }
 ::-webkit-scrollbar-thumb { background: #2d6a3f; border-radius: 2px; }
 
+/* ── NAV ── */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 300;
   height: 72px; display: flex; align-items: center; justify-content: space-between;
@@ -86,8 +227,8 @@ body {
 .nav-logo-wrap { display: flex; align-items: center; gap: 12px; cursor: pointer; }
 .nav-logo-img {
   width: 48px; height: 48px; border-radius: 50%;
-  border: 1.5px solid #2d6a3f;
-  background: #222; display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid #2d6a3f; background: #222;
+  display: flex; align-items: center; justify-content: center;
   font-size: 1.3rem; color: #8DC63F; font-weight: 700; overflow: hidden;
 }
 .nav-logo-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
@@ -138,6 +279,7 @@ body {
 }
 .drawer-cta:hover { background: #a0d94a; }
 
+/* ── BUTTONS ── */
 .btn-pill {
   display: inline-flex; align-items: center; gap: 8px;
   background: #8DC63F; color: #1a1a1a; border: none;
@@ -150,17 +292,25 @@ body {
 .btn-pill:active { transform: scale(0.96); }
 .btn-pill:disabled { background: #3a3a3a; cursor: not-allowed; transform: none; box-shadow: none; }
 
+/* ── UPDATED: Film Catering ghost button → white style ── */
 .btn-pill-ghost {
   display: inline-flex; align-items: center; gap: 8px;
-  background: transparent; color: #b0b0b0;
-  border: 1.5px solid #2e2e2e; padding: 17px 42px; border-radius: 100px;
+  background: rgba(255,255,255,0.08); color: #f2f2f2;
+  border: 1.5px solid rgba(255,255,255,0.35); padding: 17px 42px; border-radius: 100px;
   font-family: 'Outfit', sans-serif; font-weight: 500;
   font-size: 1.05rem; letter-spacing: 0.06em; text-transform: uppercase;
-  cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
 }
-.btn-pill-ghost:hover { border-color: #b0b0b0; color: #f2f2f2; transform: translateY(-3px); }
+.btn-pill-ghost:hover {
+  background: rgba(255,255,255,0.16);
+  border-color: rgba(255,255,255,0.65);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(255,255,255,0.1);
+}
 .btn-pill-ghost:active { transform: scale(0.96); }
 
+/* ── HERO ── */
 .hero {
   min-height: 100vh; position: relative; overflow: hidden;
   display: flex; align-items: center; padding: 110px 64px 72px;
@@ -181,9 +331,8 @@ body {
 }
 .hero-chip-dot { width: 7px; height: 7px; border-radius: 50%; background: #8DC63F; }
 .hero h1 {
-  font-size: clamp(3rem, 5.5vw, 5rem);
-  font-weight: 700; line-height: 1.08; color: #f2f2f2;
-  margin-bottom: 22px; letter-spacing: -0.02em;
+  font-size: clamp(3rem, 5.5vw, 5rem); font-weight: 700; line-height: 1.08;
+  color: #f2f2f2; margin-bottom: 22px; letter-spacing: -0.02em;
 }
 .hero h1 em { color: #8DC63F; font-style: normal; }
 .hero-sub {
@@ -192,6 +341,7 @@ body {
 }
 .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
 
+/* ── SHARED SECTION HEADERS ── */
 .sec-tag { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
 .sec-tag-line { width: 32px; height: 1.5px; background: #2d6a3f; }
 .sec-tag span { font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase; color: #8DC63F; font-weight: 500; }
@@ -199,14 +349,13 @@ body {
   font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 700; color: #f2f2f2;
   letter-spacing: -0.02em; line-height: 1.08; margin-bottom: 18px;
 }
-.sec-sub { font-size: 1.05rem; color: #757575; line-height: 1.85; font-weight: 300; max-width: 520px; margin-bottom: 60px; }
+.sec-sub { font-size: 1.05rem; color: #757575; line-height: 1.85; font-weight: 300; max-width: 520px; margin-bottom: 48px; }
 
+/* ── GALLERY ── */
 .gallery-section { padding: 110px 64px; background: #151515; }
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: 240px;
-  gap: 12px;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 240px; gap: 12px;
 }
 .gallery-item {
   border-radius: 12px; overflow: hidden; position: relative; cursor: pointer;
@@ -222,69 +371,71 @@ body {
 }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 
+/* ── FILM SECTION ── */
 .film-section { padding: 110px 64px; background: #111111; }
-.film-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-
-.bubbles-wrap {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+.film-tagline {
+  font-size: 1rem; color: #8DC63F; font-style: italic; font-weight: 400;
+  letter-spacing: 0.04em; margin-bottom: 40px; opacity: 0.9;
 }
-.bubble {
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1.5px solid rgba(45,106,63,0.25);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
-  aspect-ratio: 4 / 3;
-  width: 100%;
-  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s;
+.film-filter {
+  display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap;
 }
-.bubble:hover {
-  transform: scale(1.03) translateY(-3px);
-  box-shadow: 0 16px 48px rgba(141,198,63,0.25);
-  border-color: rgba(141,198,63,0.6);
-}
-.bubble img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.bubble.pulse { animation: bubblePulse 5s ease-in-out infinite; }
-@keyframes bubblePulse {
-  0%,100% { box-shadow: 0 8px 28px rgba(0,0,0,0.45); }
-  50%      { box-shadow: 0 8px 48px rgba(45,106,63,0.22); }
-}
-.bubble-center-row { grid-column: 1 / -1; display: flex; justify-content: center; }
-.bubble-center-row .bubble { width: 55%; }
-
-.film-filter { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
 .ftab {
-  padding: 10px 24px; border-radius: 100px; border: 1.5px solid #2e2e2e;
+  padding: 9px 20px; border-radius: 100px; border: 1.5px solid #2e2e2e;
   background: transparent; color: #757575; font-family: 'Outfit', sans-serif;
-  font-size: 0.9rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
-  cursor: pointer; transition: all 0.2s;
+  font-size: 0.82rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
 }
-.ftab.on { background: #8DC63F; border-color: #8DC63F; color: #1a1a1a; }
+.ftab.on { background: #8DC63F; border-color: #8DC63F; color: #1a1a1a; font-weight: 600; }
 .ftab:not(.on):hover { border-color: #757575; color: #b0b0b0; }
 
 .film-cards { display: flex; flex-direction: column; gap: 4px; }
 .film-card {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 26px; border-radius: 14px;
-  background: #222222; border: 1px solid #2e2e2e;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 22px; border-radius: 12px;
+  background: #1a1a1a; border: 1px solid #2e2e2e;
   transition: border-color 0.2s, background 0.2s;
 }
 .film-card:hover { border-color: rgba(45,106,63,0.4); background: rgba(34,34,34,0.95); }
-.film-card-name { font-size: 1.1rem; font-weight: 400; color: #b0b0b0; }
+.film-card-name { font-size: 0.97rem; font-weight: 400; color: #b0b0b0; line-height: 1.5; }
 .film-card-cat {
-  font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: #8DC63F; font-weight: 500;
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #8DC63F; font-weight: 500; white-space: nowrap; flex-shrink: 0;
   background: rgba(45,106,63,0.14); border: 1px solid rgba(45,106,63,0.28);
-  padding: 5px 14px; border-radius: 100px;
+  padding: 4px 12px; border-radius: 100px;
+}
+.film-section-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 0 10px; border-bottom: 1px solid #2a2a2a; margin-bottom: 4px;
+}
+.film-section-header-icon { font-size: 1.15rem; }
+.film-section-header-label {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #8DC63F;
 }
 
+.film-images-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 10px; margin-top: 52px;
+}
+.film-img-item {
+  border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 3;
+  border: 1.5px solid rgba(45,106,63,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+}
+.film-img-item:hover {
+  transform: scale(1.04) translateY(-3px);
+  box-shadow: 0 12px 36px rgba(45,106,63,0.25);
+  border-color: rgba(141,198,63,0.5);
+}
+.film-img-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ── BOOKING ── */
 .book-section { padding: 110px 64px; background: #151515; }
 .book-center { max-width: 780px; margin: 0 auto; }
 .wiz-card {
   background: #222222; border: 1px solid #2e2e2e;
-  border-radius: 20px; overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+  border-radius: 20px; overflow: hidden; box-shadow: 0 32px 80px rgba(0,0,0,0.5);
 }
 .wiz-prog { height: 3px; background: #2e2e2e; }
 .wiz-prog-fill { height: 100%; background: #8DC63F; transition: width 0.4s ease; }
@@ -298,7 +449,6 @@ body {
 .wiz-dot { width: 8px; height: 8px; border-radius: 50%; background: #2e2e2e; transition: background 0.3s; }
 .wiz-dot.done { background: rgba(45,106,63,0.5); }
 .wiz-dot.now  { background: #8DC63F; }
-
 .wiz-body { padding: 48px 44px 44px; }
 .wiz-h { font-size: 2.1rem; font-weight: 700; color: #f2f2f2; margin-bottom: 8px; letter-spacing: -0.01em; }
 .wiz-p { font-size: 1.05rem; color: #757575; line-height: 1.75; margin-bottom: 36px; font-weight: 300; }
@@ -316,7 +466,41 @@ body {
 .opt-lbl { font-size: 0.95rem; font-weight: 400; color: #757575; }
 .opt.on .opt-lbl { color: #f2f2f2; }
 
-.flabel { display: block; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #404040; font-weight: 500; margin-bottom: 10px; }
+/* ── UPDATED: Form section labels — more readable ── */
+.flabel {
+  display: block;
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* ── UPDATED: Section divider label inside wizard ── */
+.wiz-section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.wiz-section-label span {
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c0c0c0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.wiz-section-label::before,
+.wiz-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #2e2e2e;
+}
+.wiz-section-label::before { display: none; }
+
 .inp {
   width: 100%; background: #1e1e1e; border: 1px solid #2e2e2e;
   border-radius: 12px; padding: 16px 18px; color: #f2f2f2;
@@ -326,15 +510,6 @@ body {
 .inp:focus { border-color: #4a9e64; }
 .inp::placeholder { color: #404040; }
 .inp[readonly] { cursor: default; opacity: 0.75; }
-
-.tog-row { display: flex; gap: 8px; margin-bottom: 22px; }
-.tog {
-  padding: 10px 24px; border-radius: 100px; border: 1.5px solid #2e2e2e;
-  background: transparent; color: #757575;
-  font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 400;
-  letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.2s;
-}
-.tog.on { background: #8DC63F; border-color: #8DC63F; color: #1a1a1a; }
 
 .wiz-nav {
   display: flex; justify-content: space-between; align-items: center;
@@ -351,11 +526,9 @@ body {
 
 .confirm-wrap { text-align: center; padding: 24px 0 12px; }
 .confirm-ring {
-  width: 90px; height: 90px; border-radius: 50%;
-  border: 2px solid #2d6a3f;
+  width: 90px; height: 90px; border-radius: 50%; border: 2px solid #2d6a3f;
   display: flex; align-items: center; justify-content: center;
-  font-size: 2.4rem; margin: 0 auto 32px;
-  background: rgba(45,106,63,0.1);
+  font-size: 2.4rem; margin: 0 auto 32px; background: rgba(45,106,63,0.1);
   animation: ringPop 0.5s ease;
 }
 @keyframes ringPop {
@@ -367,44 +540,121 @@ body {
 .confirm-p { font-size: 1.05rem; color: #757575; line-height: 1.85; font-weight: 300; }
 .confirm-p strong { color: #b0b0b0; font-weight: 500; }
 
+/* ── PORTFOLIO ── */
+.portfolio-section { padding: 110px 64px; background: #111111; }
+
+.portfolio-about {
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px;
+  align-items: start; margin-bottom: 72px;
+  padding-bottom: 64px; border-bottom: 1px solid #2e2e2e;
+}
+.portfolio-about-text p {
+  font-size: 1.05rem; color: #757575; line-height: 1.9; font-weight: 300; margin-bottom: 20px;
+}
+.portfolio-badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+.portfolio-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(45,106,63,0.12); border: 1px solid rgba(45,106,63,0.3);
+  color: #8DC63F; font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 8px 18px; border-radius: 100px;
+}
+.portfolio-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #8DC63F; flex-shrink: 0; }
+
+.portfolio-meta { display: flex; flex-direction: column; gap: 24px; }
+.portfolio-meta-card {
+  background: #1a1a1a; border: 1px solid #2e2e2e; border-radius: 16px; padding: 24px 28px;
+}
+.portfolio-meta-label {
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #8DC63F; font-weight: 500; margin-bottom: 10px;
+}
+.portfolio-meta-card p { font-size: 1rem; color: #b0b0b0; font-weight: 400; line-height: 1.7; }
+.portfolio-meta-card ul { list-style: none; padding: 0; }
+.portfolio-meta-card ul li {
+  font-size: 1rem; color: #b0b0b0; font-weight: 400;
+  padding: 4px 0; display: flex; align-items: center; gap: 10px;
+}
+.portfolio-meta-card ul li::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: #2d6a3f; flex-shrink: 0;
+}
+
+.portfolio-credits-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.portfolio-credits-col h4 {
+  font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #8DC63F; font-weight: 600; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 1px solid #2e2e2e;
+}
+.credit-list { display: flex; flex-direction: column; gap: 4px; }
+.credit-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px 20px; border-radius: 12px;
+  background: #1a1a1a; border: 1px solid #2e2e2e;
+  transition: border-color 0.2s, background 0.2s;
+}
+.credit-item:hover { border-color: rgba(45,106,63,0.35); background: #1e1e1e; }
+.credit-item-title { font-size: 0.97rem; font-weight: 400; color: #c0c0c0; }
+.credit-item-type {
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #8DC63F; font-weight: 500; white-space: nowrap; flex-shrink: 0;
+  background: rgba(45,106,63,0.12); border: 1px solid rgba(45,106,63,0.25);
+  padding: 3px 10px; border-radius: 100px;
+}
+.credit-item-live .credit-item-type {
+  color: #f0c040; background: rgba(240,192,64,0.1); border-color: rgba(240,192,64,0.3);
+}
+
+/* ── FOOTER ── */
 footer {
-  background: #111111; border-top: 1px solid #2e2e2e;
-  padding: 80px 64px 52px;
+  background: #111111; border-top: 1px solid #2e2e2e; padding: 80px 64px 52px;
   display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 64px;
 }
 .ft-brand { font-size: 1.4rem; font-weight: 600; color: #f2f2f2; margin-bottom: 16px; display: block; }
 .ft-brand span { color: #8DC63F; }
 .ft-desc { font-size: 0.95rem; color: #757575; line-height: 1.85; max-width: 280px; margin-bottom: 28px; font-weight: 300; }
 .ft-socials { display: flex; gap: 10px; }
+/* ── UPDATED: Social icon buttons ── */
 .ft-soc {
   width: 42px; height: 42px; border-radius: 50%;
   border: 1px solid #2e2e2e; display: flex; align-items: center; justify-content: center;
-  font-size: 0.9rem; color: #404040; cursor: pointer; transition: border-color 0.2s, color 0.2s;
+  color: #606060; cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s;
+  text-decoration: none;
 }
-.ft-soc:hover { border-color: #2d6a3f; color: #8DC63F; }
+.ft-soc:hover { border-color: #2d6a3f; color: #8DC63F; background: rgba(45,106,63,0.08); }
+.ft-soc svg { width: 18px; height: 18px; fill: currentColor; }
 .ft-col h5 { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: #8DC63F; font-weight: 500; margin-bottom: 22px; }
-.ft-col p { font-size: 0.95rem; color: #757575; margin-bottom: 12px; font-weight: 300; }
+/* ── UPDATED: Contact items with SVG icons ── */
+.ft-contact-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.95rem; color: #757575; margin-bottom: 14px; font-weight: 300;
+  text-decoration: none; transition: color 0.2s;
+}
+.ft-contact-item:hover { color: #b0b0b0; }
+.ft-contact-item svg { width: 16px; height: 16px; flex-shrink: 0; stroke: #8DC63F; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .ft-bar {
   background: #111111; border-top: 1px solid rgba(46,46,46,0.6);
   padding: 22px 64px; display: flex; justify-content: space-between;
 }
 .ft-bar p { font-size: 0.82rem; color: #404040; }
 
-@media (max-width: 1200px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
-@media (max-width: 900px)  { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px)  { .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; } }
-@media (max-width: 480px)  { .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; } }
+/* ── RESPONSIVE ── */
+@media (max-width: 1200px) {
+  .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+  .film-images-grid { grid-template-columns: repeat(4, 1fr); }
+}
 @media (max-width: 1024px) {
   .nav { padding: 0 40px; }
-  .film-section, .gallery-section, .book-section, .hero { padding-left: 40px; padding-right: 40px; }
+  .film-section, .gallery-section, .book-section, .portfolio-section, .hero { padding-left: 40px; padding-right: 40px; }
   footer { padding-left: 40px; padding-right: 40px; }
   .ft-bar { padding-left: 40px; padding-right: 40px; }
+  .film-images-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 900px) {
-  .film-layout { grid-template-columns: 1fr; gap: 48px; }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .gallery-item.tall { grid-row: span 1; }
-  .gallery-item.wide { grid-column: span 1; }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .film-images-grid { grid-template-columns: repeat(3, 1fr); }
+  .portfolio-about { grid-template-columns: 1fr; gap: 40px; }
+  .portfolio-credits-wrap { grid-template-columns: 1fr; gap: 36px; }
 }
 @media (max-width: 768px) {
   html { font-size: 16px; }
@@ -416,10 +666,9 @@ footer {
   .hero { padding: 96px 20px 60px; min-height: 90vh; }
   .hero-btns { flex-direction: column; }
   .btn-pill, .btn-pill-ghost { width: 100%; justify-content: center; }
-  .film-section, .gallery-section, .book-section { padding: 72px 20px; }
-  .bubbles-wrap { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
-  .gallery-item.tall, .gallery-item.wide { grid-row: span 1; grid-column: span 1; }
+  .film-section, .gallery-section, .book-section, .portfolio-section { padding: 72px 20px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+  .film-images-grid { grid-template-columns: repeat(2, 1fr); }
   .wiz-body { padding: 28px 20px 24px; }
   .wiz-head { padding: 16px 20px; }
   .book-center { max-width: 100%; }
@@ -429,7 +678,8 @@ footer {
 }
 @media (max-width: 480px) {
   .hero h1 { font-size: 2.6rem; }
-  .bubbles-wrap { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
+  .film-images-grid { grid-template-columns: repeat(2, 1fr); }
 }
 `
 
@@ -442,26 +692,16 @@ export default function App() {
   const [submitting, setSubmitting] = useState(false)
 
   const [form, setForm] = useState({
-    service: '',
-    cuisines: [],
-    meal: [],
-    style: [],
-    guests: '',
-    dateMode: 'single',
-    date: '',
-    dateEnd: '',
-    time: '',
-    province: 'British Columbia',
-    city: '',
-    budget: '',
-    name: '',
-    email: '',
-    phone: '',
+    service: '', cuisines: [], meal: [], style: [],
+    guests: '', date: '', time: '',
+    city: '', budget: '',
+    name: '', email: '', phone: '',
   })
 
   const galleryRef = useRef(null)
   const filmRef = useRef(null)
   const bookRef = useRef(null)
+  const portfolioRef = useRef(null)
 
   const scrollTo = (ref, id) => {
     setNavPop(id)
@@ -470,18 +710,11 @@ export default function App() {
     setMenuOpen(false)
   }
 
-  const items = filmFilter === 'all'
-    ? MENU_ITEMS
-    : MENU_ITEMS.filter(i => i.cat === filmFilter)
-
   const pct = (step / (STEPS.length - 1)) * 100
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
-
   const togField = (field, val) => setForm(f => ({
     ...f,
-    [field]: f[field].includes(val)
-      ? f[field].filter(x => x !== val)
-      : [...f[field], val],
+    [field]: f[field].includes(val) ? f[field].filter(x => x !== val) : [...f[field], val],
   }))
 
   const canNext = () => {
@@ -498,12 +731,7 @@ export default function App() {
 
   const handleSubmit = async () => {
     setSubmitting(true)
-    await submitToSheets({
-      ...form,
-      meal: form.meal.join(', '),
-      style: form.style.join(', '),
-      cuisines: form.cuisines.join(', '),
-    })
+    await submitToSheets({ ...form, meal: form.meal.join(', '), style: form.style.join(', '), cuisines: form.cuisines.join(', ') })
     setSubmitting(false)
     setDone(true)
   }
@@ -528,6 +756,32 @@ export default function App() {
     )
   }
 
+  const renderMenuCards = () => {
+    if (filmFilter === 'all') {
+      return ALL_SPOTLIGHT.map((item, i) => (
+        <div key={i} className="film-card">
+          <span className="film-card-name">{item.name}</span>
+          <span className="film-card-cat">{item.cat}</span>
+        </div>
+      ))
+    }
+    const section = FILM_MENU[filmFilter]
+    if (!section) return null
+    return (
+      <>
+        <div className="film-section-header">
+          <span className="film-section-header-icon">{section.icon}</span>
+          <span className="film-section-header-label">{section.label}</span>
+        </div>
+        {section.items.map((item, i) => (
+          <div key={i} className="film-card">
+            <span className="film-card-name">{item}</span>
+          </div>
+        ))}
+      </>
+    )
+  }
+
   return (
     <>
       <style>{css}</style>
@@ -538,25 +792,23 @@ export default function App() {
           onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
           <span /><span /><span />
         </button>
-        <div className="nav-logo-wrap"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <div className="nav-logo-wrap" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <div className="nav-logo-img">
-            <img src="/logo (1).jpeg" alt="JIT"
-              onError={e => { e.target.style.display = 'none' }} />
+            <img src="/logo (1).jpeg" alt="JIT" onError={e => { e.target.style.display = 'none' }} />
           </div>
-          <div className="nav-logo-text">Just<span>In</span>Time</div>
+          <div className="nav-logo-text">Just<span>In</span>Time Catering</div>
         </div>
         <div className="nav-right">
-          <button className={`nav-link${navPop === 'film' ? ' pop' : ''}`}
-            onClick={() => scrollTo(filmRef, 'film')}>Film Catering</button>
-          <button className={`nav-link${navPop === 'book' ? ' pop' : ''}`}
-            onClick={() => scrollTo(bookRef, 'book')}>Book a Truck</button>
+          <button className={`nav-link${navPop === 'film' ? ' pop' : ''}`} onClick={() => scrollTo(filmRef, 'film')}>Film Catering</button>
+          <button className={`nav-link${navPop === 'book' ? ' pop' : ''}`} onClick={() => scrollTo(bookRef, 'book')}>Book a Truck</button>
+          <button className={`nav-link${navPop === 'portfolio' ? ' pop' : ''}`} onClick={() => scrollTo(portfolioRef, 'portfolio')}>Portfolio</button>
         </div>
       </nav>
 
       {/* MOBILE DRAWER */}
       <div className={`drawer${menuOpen ? ' open' : ''}`}>
         <button className="drawer-link" onClick={() => scrollTo(filmRef, 'film')}>Film Catering</button>
+        <button className="drawer-link" onClick={() => scrollTo(portfolioRef, 'portfolio')}>Portfolio</button>
         <button className="drawer-link" onClick={() => scrollTo(bookRef, 'book')}>Book a Truck</button>
         <button className="drawer-cta" onClick={() => scrollTo(bookRef, 'book')}>Reserve Now</button>
       </div>
@@ -565,17 +817,12 @@ export default function App() {
       <section className="hero">
         <div className="hero-bg" />
         <div className="hero-content">
-          <div className="hero-chip">
-            <div className="hero-chip-dot" />
-            Film &amp; Event Catering · Canada
-          </div>
+          <div className="hero-chip"><div className="hero-chip-dot" />Film &amp; Event Catering · Canada</div>
           <h1>Fueling Crews<br />&amp; <em>Events,</em><br />Just In Time</h1>
-          <p className="hero-sub">
-            Premium food truck catering for film productions, corporate events,
-            and festivals. Fresh, reliable, always on cue.
-          </p>
+          <p className="hero-sub">Premium food truck catering for film productions, corporate events, and festivals. Fresh, reliable, always on cue.</p>
           <div className="hero-btns">
             <button className="btn-pill" onClick={() => scrollTo(bookRef, 'book')}>Book a Truck</button>
+            {/* UPDATED: white ghost style */}
             <button className="btn-pill-ghost" onClick={() => scrollTo(filmRef, 'film')}>Film Catering ↓</button>
           </div>
         </div>
@@ -585,9 +832,7 @@ export default function App() {
       <section className="gallery-section" ref={galleryRef}>
         <div className="sec-tag"><div className="sec-tag-line" /><span>Gallery</span></div>
         <h2 className="sec-title">From the Field</h2>
-        <p className="sec-sub">
-          A look at what we bring to every set, event, and festival — real food, real moments.
-        </p>
+        <p className="sec-sub">A look at what we bring to every set, event, and festival — real food, real moments.</p>
         <div className="gallery-grid">
           {GALLERY.map(img => (
             <div key={img.id} className="gallery-item">
@@ -602,36 +847,24 @@ export default function App() {
       <section className="film-section" ref={filmRef}>
         <div className="sec-tag"><div className="sec-tag-line" /><span>Film Catering</span></div>
         <h2 className="sec-title">What We Bring<br />to Set</h2>
-        <p className="sec-sub">
-          From pre-dawn breakfasts on early call mornings to full spread lunches
-          for 200+ crew. We've got every shift covered.
-        </p>
-        <div className="film-layout">
-          <div className="bubbles-wrap">
-            {BUBBLES.map((b, i) => (
-              <div key={i} className={`bubble${i === 0 ? ' pulse' : ''}`}>
-                <img src={b.src} alt={b.alt} loading="lazy" />
-              </div>
-            ))}
-          </div>
-          <div>
-            <div className="film-filter">
-              {['all', 'breakfast', 'lunch'].map(f => (
-                <button key={f} className={`ftab${filmFilter === f ? ' on' : ''}`}
-                  onClick={() => setFilmFilter(f)}>
-                  {f === 'all' ? 'All' : f.charAt(0).toUpperCase() + f.slice(1)}
-                </button>
-              ))}
+        <p className="film-tagline">"First Call to Last Shot — Exceptional Meals, Every Time."</p>
+
+        <div className="film-filter">
+          {TOGGLE_TABS.map(t => (
+            <button key={t.key} className={`ftab${filmFilter === t.key ? ' on' : ''}`} onClick={() => setFilmFilter(t.key)}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="film-cards">{renderMenuCards()}</div>
+
+        <div className="film-images-grid">
+          {FM_IMAGES.map((img, i) => (
+            <div key={i} className="film-img-item">
+              <img src={img.src} alt={img.alt} loading="lazy" />
             </div>
-            <div className="film-cards">
-              {items.map(item => (
-                <div key={item.id} className="film-card">
-                  <span className="film-card-name">{item.name}</span>
-                  <span className="film-card-cat">{item.cat}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -646,29 +879,18 @@ export default function App() {
             Tell us about your event and we'll put together the perfect spread.
           </p>
         </div>
-
         <div className="book-center">
           <div className="wiz-card">
-            <div className="wiz-prog">
-              <div className="wiz-prog-fill" style={{ width: done ? '100%' : `${pct}%` }} />
-            </div>
-
+            <div className="wiz-prog"><div className="wiz-prog-fill" style={{ width: done ? '100%' : `${pct}%` }} /></div>
             {!done && (
               <div className="wiz-head">
-                <span className="wiz-step-info">
-                  Step <strong>{step + 1}</strong> of {STEPS.length} — {STEPS[step]}
-                </span>
+                <span className="wiz-step-info">Step <strong>{step + 1}</strong> of {STEPS.length} — {STEPS[step]}</span>
                 <div className="wiz-step-dots">
-                  {STEPS.map((_, i) => (
-                    <div key={i} className={`wiz-dot${i < step ? ' done' : i === step ? ' now' : ''}`} />
-                  ))}
+                  {STEPS.map((_, i) => <div key={i} className={`wiz-dot${i < step ? ' done' : i === step ? ' now' : ''}`} />)}
                 </div>
               </div>
             )}
-
             <div className="wiz-body">
-
-              {/* CONFIRMATION */}
               {done && (
                 <div className="confirm-wrap">
                   <div className="confirm-ring">✓</div>
@@ -681,46 +903,40 @@ export default function App() {
                 </div>
               )}
 
-              {/* STEP 1 */}
               {!done && step === 0 && (
-                <>
-                  <h3 className="wiz-h">Service Type</h3>
-                  <p className="wiz-p">How should food be served at your event?</p>
+                <><h3 className="wiz-h">Service Type</h3><p className="wiz-p">How should food be served at your event?</p>
                   <div className="opts">
                     <Opt icon="🍽️" label="À La Carte" val="alacarte" field="service" />
                     <Opt icon="🥘" label="Buffet" val="buffet" field="service" />
-                  </div>
-                </>
+                  </div></>
               )}
 
-              {/* STEP 2 */}
               {!done && step === 1 && (
-                <>
-                  <h3 className="wiz-h">Cuisine</h3>
-                  <p className="wiz-p">Select everything that applies — we mix and match.</p>
+                <><h3 className="wiz-h">Cuisine</h3><p className="wiz-p">Select everything that applies — we mix and match.</p>
                   <div className="opts">
                     <OptM icon="🔥" label="BBQ" val="bbq" field="cuisines" />
                     <OptM icon="🍔" label="Burgers" val="burgers" field="cuisines" />
                     <OptM icon="🌮" label="Tacos" val="tacos" field="cuisines" />
                     <OptM icon="🍳" label="Breakfast" val="breakfast" field="cuisines" />
                     <OptM icon="🍰" label="Desserts" val="desserts" field="cuisines" />
-                  </div>
-                </>
+                  </div></>
               )}
 
-              {/* STEP 3 */}
+              {/* UPDATED: Meal Preferences — improved section label readability */}
               {!done && step === 2 && (
                 <>
                   <h3 className="wiz-h">Meal Preferences</h3>
-                  <p className="wiz-p">Select all that apply for both sections.</p>
-                  <label className="flabel">Meal Time — select all that apply</label>
-                  <div className="opts" style={{ marginBottom: 28 }}>
+                  <p className="wiz-p">Select all that apply for both sections below.</p>
+
+                  <div className="wiz-section-label"><span>Meal Time</span></div>
+                  <div className="opts" style={{ marginBottom: 32 }}>
                     <OptM icon="🌅" label="Breakfast" val="breakfast" field="meal" />
                     <OptM icon="☀️" label="Lunch" val="lunch" field="meal" />
                     <OptM icon="🌙" label="Dinner" val="dinner" field="meal" />
                     <OptM icon="🍪" label="Dessert" val="dessert" field="meal" />
                   </div>
-                  <label className="flabel">Serving Style — select all that apply</label>
+
+                  <div className="wiz-section-label"><span>Serving Style</span></div>
                   <div className="opts">
                     <OptM icon="🥩" label="Main" val="main" field="style" />
                     <OptM icon="🥗" label="Sides" val="sides" field="style" />
@@ -730,147 +946,164 @@ export default function App() {
                 </>
               )}
 
-              {/* STEP 4 */}
               {!done && step === 3 && (
-                <>
-                  <h3 className="wiz-h">Guest Count</h3>
-                  <p className="wiz-p">How many people are you expecting?</p>
+                <><h3 className="wiz-h">Guest Count</h3><p className="wiz-p">How many people are you expecting?</p>
                   <label className="flabel">Number of Guests</label>
-                  <input className="inp" type="number" placeholder="e.g. 75"
-                    value={form.guests} onChange={e => set('guests', e.target.value)} />
-                </>
+                  <input className="inp" type="number" placeholder="e.g. 75" value={form.guests} onChange={e => set('guests', e.target.value)} /></>
               )}
 
-              {/* STEP 5 */}
+              {/* UPDATED: Date & Time — removed duration toggle, just date + time */}
               {!done && step === 4 && (
                 <>
                   <h3 className="wiz-h">Date &amp; Time</h3>
                   <p className="wiz-p">When should we show up?</p>
-                  <label className="flabel">Event Duration</label>
-                  <div className="tog-row">
-                    {['single', 'multiple'].map(m => (
-                      <button key={m} className={`tog${form.dateMode === m ? ' on' : ''}`}
-                        onClick={() => set('dateMode', m)}>
-                        {m === 'single' ? 'Single Day' : 'Multiple Days'}
-                      </button>
-                    ))}
-                  </div>
-                  <label className="flabel">
-                    {form.dateMode === 'multiple' ? 'Start Date' : 'Event Date'}
-                  </label>
-                  <input className="inp" type="date" value={form.date}
-                    onChange={e => set('date', e.target.value)}
-                    style={{ marginBottom: 20 }} />
-                  {form.dateMode === 'multiple' && (
-                    <>
-                      <label className="flabel">End Date</label>
-                      <input className="inp" type="date" value={form.dateEnd}
-                        onChange={e => set('dateEnd', e.target.value)}
-                        style={{ marginBottom: 20 }} />
-                    </>
-                  )}
-                  <label className="flabel" style={{ marginTop: 8 }}>Preferred Start Time</label>
-                  <input className="inp" type="text"
-                    placeholder="e.g. 7:00 AM, after 6pm, flexible..."
-                    value={form.time} onChange={e => set('time', e.target.value)} />
+                  <label className="flabel">Event Date</label>
+                  <input className="inp" type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ marginBottom: 20 }} />
+                  <label className="flabel">Preferred Start Time</label>
+                  <input className="inp" type="text" placeholder="e.g. 7:00 AM, after 6pm, flexible..." value={form.time} onChange={e => set('time', e.target.value)} />
                 </>
               )}
 
-              {/* STEP 6 */}
+              {/* UPDATED: Location — removed Province, city only */}
               {!done && step === 5 && (
                 <>
                   <h3 className="wiz-h">Location</h3>
                   <p className="wiz-p">We operate across British Columbia.</p>
-                  <label className="flabel">Province</label>
-                  <input className="inp" value="British Columbia" readOnly
-                    style={{ color: '#8DC63F', marginBottom: 20 }} />
                   <label className="flabel">City</label>
-                  <input className="inp" placeholder="e.g. Vancouver, Surrey, Burnaby..."
-                    value={form.city} onChange={e => set('city', e.target.value)} />
+                  <input className="inp" placeholder="e.g. Vancouver, Surrey, Burnaby..." value={form.city} onChange={e => set('city', e.target.value)} />
                 </>
               )}
 
-              {/* STEP 7 */}
               {!done && step === 6 && (
-                <>
-                  <h3 className="wiz-h">Budget</h3>
-                  <p className="wiz-p">What's your approximate budget for this event?</p>
+                <><h3 className="wiz-h">Budget</h3><p className="wiz-p">What's your approximate budget for this event?</p>
                   <label className="flabel">Estimated Budget (CAD)</label>
                   <div style={{ position: 'relative' }}>
-                    <span style={{
-                      position: 'absolute', left: 16, top: '50%',
-                      transform: 'translateY(-50%)', color: '#404040', fontSize: '1.1rem',
-                    }}>$</span>
-                    <input className="inp" type="number" placeholder="e.g. 1,500"
-                      style={{ paddingLeft: 32 }}
-                      value={form.budget} onChange={e => set('budget', e.target.value)} />
-                  </div>
-                </>
+                    <span style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: '#404040', fontSize: '1.1rem' }}>$</span>
+                    <input className="inp" type="number" placeholder="e.g. 1,500" style={{ paddingLeft: 32 }} value={form.budget} onChange={e => set('budget', e.target.value)} />
+                  </div></>
               )}
 
-              {/* STEP 8 */}
               {!done && step === 7 && (
-                <>
-                  <h3 className="wiz-h">Contact Info</h3>
-                  <p className="wiz-p">We'll use these to confirm your booking.</p>
+                <><h3 className="wiz-h">Contact Info</h3><p className="wiz-p">We'll use these to confirm your booking.</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    <div>
-                      <label className="flabel">Full Name</label>
-                      <input className="inp" placeholder="Jane Smith"
-                        value={form.name} onChange={e => set('name', e.target.value)} />
-                    </div>
-                    <div>
-                      <label className="flabel">Email Address</label>
-                      <input className="inp" type="email" placeholder="jane@production.com"
-                        value={form.email} onChange={e => set('email', e.target.value)} />
-                    </div>
-                    <div>
-                      <label className="flabel">Phone Number</label>
-                      <input className="inp" type="tel" placeholder="+1 (604) 000-0000"
-                        value={form.phone} onChange={e => set('phone', e.target.value)} />
-                    </div>
-                  </div>
-                </>
+                    <div><label className="flabel">Full Name</label><input className="inp" placeholder="Jane Smith" value={form.name} onChange={e => set('name', e.target.value)} /></div>
+                    <div><label className="flabel">Email Address</label><input className="inp" type="email" placeholder="jane@production.com" value={form.email} onChange={e => set('email', e.target.value)} /></div>
+                    <div><label className="flabel">Phone Number</label><input className="inp" type="tel" placeholder="+1 (604) 000-0000" value={form.phone} onChange={e => set('phone', e.target.value)} /></div>
+                  </div></>
               )}
 
-              {/* NAV BUTTONS */}
               {!done && (
                 <div className="wiz-nav">
-                  {step > 0
-                    ? <button className="btn-back-wiz" onClick={() => setStep(s => s - 1)}>← Back</button>
-                    : <span />
-                  }
+                  {step > 0 ? <button className="btn-back-wiz" onClick={() => setStep(s => s - 1)}>← Back</button> : <span />}
                   <button className="btn-pill" disabled={!canNext() || submitting}
                     onClick={() => step < STEPS.length - 1 ? setStep(s => s + 1) : handleSubmit()}>
                     {submitting ? 'Sending…' : step === STEPS.length - 1 ? 'Submit Request' : 'Continue →'}
                   </button>
                 </div>
               )}
-
             </div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* PORTFOLIO */}
+      <section className="portfolio-section" ref={portfolioRef}>
+        <div className="sec-tag"><div className="sec-tag-line" /><span>Portfolio</span></div>
+        <h2 className="sec-title">Our Story &amp;<br />Credits</h2>
+
+        <div className="portfolio-about">
+          <div className="portfolio-about-text">
+            <p>
+              Just-In Time Catering and Events Ltd. is a professional mobile catering service
+              specializing in the Hollywood North film and television industry, with expanded
+              operations supporting large-scale events such as music festivals, weddings, and
+              specialty culinary experiences.
+            </p>
+            <p>
+              Established in 2022, we've quickly built a strong reputation for delivering
+              high-quality food service under the fast-paced demands of film sets and large
+              events — always on time, always on standard.
+            </p>
+            <div className="portfolio-badge-row">
+              <span className="portfolio-badge"><span className="portfolio-badge-dot" />Teamsters Local 155</span>
+              <span className="portfolio-badge"><span className="portfolio-badge-dot" />ACFC Member</span>
+              <span className="portfolio-badge"><span className="portfolio-badge-dot" />Est. 2022</span>
+            </div>
+          </div>
+          <div className="portfolio-meta">
+            <div className="portfolio-meta-card">
+              <div className="portfolio-meta-label">Where We Operate</div>
+              <ul><li>Greater Vancouver Area</li><li>Vancouver Island</li></ul>
+            </div>
+            <div className="portfolio-meta-card">
+              <div className="portfolio-meta-label">Union Standards</div>
+              <p>We operate with full union standards, reliability, and production-level efficiency — trusted by productions across BC.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="portfolio-credits-wrap">
+          <div className="portfolio-credits-col">
+            <h4>🎬 Film &amp; Television Credits</h4>
+            <div className="credit-list">
+              {FILM_CREDITS.map((c, i) => (
+                <div key={i} className="credit-item">
+                  <span className="credit-item-title">{c.title}</span>
+                  <span className="credit-item-type">{c.type}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="portfolio-credits-col">
+            <h4>🎵 Live &amp; Special Events</h4>
+            <div className="credit-list">
+              {LIVE_EVENTS.map((c, i) => (
+                <div key={i} className="credit-item credit-item-live">
+                  <span className="credit-item-title">{c.title}</span>
+                  <span className="credit-item-type">{c.type}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER — UPDATED: Instagram + Facebook only, SVG icons for contact */}
       <footer>
         <div>
           <span className="ft-brand">Just<span>In</span>Time Catering</span>
-          <p className="ft-desc">
-            Film &amp; event catering across Canada. Fresh food, reliable
-            service, on every call sheet since 2020.
-          </p>
           <div className="ft-socials">
-            {['𝕏', 'f', 'in', '◎'].map((s, i) => (
-              <div key={i} className="ft-soc">{s}</div>
-            ))}
+            {/* Instagram — REPLACE href with your Instagram URL */}
+            <a href="https://www.instagram.com/justintimemobilecateringbc?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="ft-soc" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+            {/* Facebook — REPLACE href with your Facebook URL */}
+            <a href="http://www.justintime.business/" target="_blank" rel="noopener noreferrer" className="ft-soc" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
           </div>
         </div>
         <div className="ft-col">
           <h5>Contact</h5>
-          <p>📍 Vancouver and British Columbia, CA</p>
-          <p>📧 justintimefundining@gmail.com</p>
-          <p>📞 (604) 236-8630707</p>
+          {/* Email with SVG icon */}
+          <a href="mailto:justintimefundining@gmail.com" className="ft-contact-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            justintimefundining@gmail.com
+          </a>
+          {/* Phone with SVG icon */}
+          <a href="tel:+12368630707" className="ft-contact-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l1.27-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            236-863-0707
+          </a>
         </div>
         <div className="ft-col">
           <h5>Services</h5>
@@ -881,7 +1114,7 @@ export default function App() {
         </div>
       </footer>
       <div className="ft-bar">
-        <p>© 2024 Just In Time Catering Inc. All rights reserved.</p>
+        <p>© 2026 Just In Time Catering Inc. All rights reserved.</p>
         <p>Vancouver, Canada</p>
       </div>
     </>
