@@ -897,7 +897,7 @@ export default function App() {
             <div className="sec-tag-line" /><span>Reservations</span><div className="sec-tag-line" />
           </div>
           <h2 className="sec-title">Book a Truck</h2>
-          <p style={{ fontSize: '1.05rem', color: '#757575', lineHeight: 1.8, fontWeight: 300, marginTop: 12 }}>
+          <p style={{ fontSize: '1.05rem', color: '#757575', lineHeight: 1.8, fontWeight: 300, marginTop: 10 }}>
             Tell us about your event and we'll put together the perfect spread.
           </p>
         </div>
