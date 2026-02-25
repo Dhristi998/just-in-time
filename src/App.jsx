@@ -124,21 +124,74 @@ const FILM_MENU = {
   },
 }
 
-const ALL_SPOTLIGHT = [
-  { name: 'Classic Eggs Benedict', cat: 'Hot Breakfast' },
-  { name: 'Buttermilk Pancakes with Maple Syrup', cat: 'Hot Breakfast' },
-  { name: 'Fresh-Baked Croissants (Butter & Chocolate)', cat: 'Bakery & Breads' },
-  { name: 'Greek Yogurt & Parfait Station (Granola, Berries, Honey)', cat: 'Fresh & Healthy' },
-  { name: 'Freshly Brewed Coffee (Regular & Decaf)', cat: 'Beverages' },
-  { name: 'Lemon Herb Grilled Chicken — Wild rice, roasted market vegetables', cat: 'Entrées' },
-  { name: 'Roasted Tomato Basil', cat: 'Soups' },
-  { name: 'Caesar Salad', cat: 'Salads' },
-  { name: 'Chickpea & Sweet Potato Curry (Vegan)', cat: 'Entrées' },
-  { name: 'Chocolate Decadence Cake — Silky ganache, chocolate curls', cat: 'Desserts' },
-]
+// ── Per-category image sets (5 images each, from /fm/<folder>/) ──
+const CATEGORY_IMAGES = {
+  hot_breakfast: [
+    { src: '/fm/breakfast (1).png', alt: 'Breakfast 1' },
+    { src: '/fm/breakfast (2).png', alt: 'Breakfast 2' },
+    { src: '/fm/breakfast (3).png', alt: 'Breakfast 3' },
+    { src: '/fm/breakfast (4).png', alt: 'Breakfast 4' },
+    { src: '/fm/breakfast (5).png', alt: 'Breakfast 5' },
+  ],
+  bakery: [
+    { src: '/fm/bakery (1).png', alt: 'Bakery 1' },
+    { src: '/fm/bakery (2).png', alt: 'Bakery 2' },
+    { src: '/fm/bakery (3).png', alt: 'Bakery 3' },
+    { src: '/fm/bakery (4).png', alt: 'Bakery 4' },
+    { src: '/fm/bakery (5).png', alt: 'Bakery 5' },
+  ],
+  healthy: [
+    { src: '/fm/fresh (1).png', alt: 'Healthy 1' },
+    { src: '/fm/fresh (2).png', alt: 'Healthy 2' },
+    { src: '/fm/fresh (3).png', alt: 'Healthy 3' },
+    { src: '/fm/fresh (4).png', alt: 'Healthy 4' },
+    { src: '/fm/fresh (5).png', alt: 'Healthy 5' },
+  ],
+  beverages: [
+    { src: '/fm/beverages (1).png', alt: 'Beverages 1' },
+    { src: '/fm/beverages (2).png', alt: 'Beverages 2' },
+    { src: '/fm/beverages (3).png', alt: 'Beverages 3' },
+    { src: '/fm/beverages (4).png', alt: 'Beverages 4' },
+    { src: '/fm/beverages (5).png', alt: 'Beverages 5' },
+  ],
+  dietary: [
+    { src: '/fm/healthy (1).png', alt: 'Dietary 1' },
+    { src: '/fm/healthy (2).png', alt: 'Dietary 2' },
+    { src: '/fm/healthy (3).png', alt: 'Dietary 3' },
+    { src: '/fm/healthy (4).png', alt: 'Dietary 4' },
+  ],
+  entrees: [
+    { src: '/fm/entres (1).png', alt: 'Entrees 1' },
+    { src: '/fm/entres (2).png', alt: 'Entrees 2' },
+    { src: '/fm/entres (3).png', alt: 'Entrees 3' },
+    { src: '/fm/entres (4).png', alt: 'Entrees 4' },
+    { src: '/fm/entres (5).png', alt: 'Entrees 5' },
+  ],
+  soups: [
+    { src: '/fm/soups (1).png', alt: 'Soups 1' },
+    { src: '/fm/soups (2).png', alt: 'Soups 2' },
+    { src: '/fm/soups (3).png', alt: 'Soups 3' },
+    { src: '/fm/soups (4).png', alt: 'Soups 4' },
+    { src: '/fm/soups (5).png', alt: 'Soups 5' },
+  ],
+  salads: [
+    { src: '/fm/salad (1).png', alt: 'Salads 1' },
+    { src: '/fm/salad (2).png', alt: 'Salads 2' },
+    { src: '/fm/salad (3).png', alt: 'Salads 3' },
+    { src: '/fm/salad (4).png', alt: 'Salads 4' },
+    { src: '/fm/salad (5).png', alt: 'Salads 5' },
+  ],
+  desserts: [
+    { src: '/fm/desserts (1).png', alt: 'Desserts 1' },
+    { src: '/fm/desserts (2).png', alt: 'Desserts 2' },
+    { src: '/fm/desserts (3).png', alt: 'Desserts 3' },
+    { src: '/fm/desserts (4).png', alt: 'Desserts 4' },
+    { src: '/fm/desserts (5).png', alt: 'Desserts 5' },
+  ],
+}
 
+// ── Toggle tabs — no "All" tab ──
 const TOGGLE_TABS = [
-  { key: 'all', label: 'All' },
   { key: 'hot_breakfast', label: 'Hot Breakfast' },
   { key: 'bakery', label: 'Bakery & Breads' },
   { key: 'healthy', label: 'Fresh & Healthy' },
@@ -168,16 +221,6 @@ const GALLERY = [
   { id: 15, src: '/new (17).png', alt: 'Truck rainbow' },
 ]
 
-const FM_IMAGES = [
-  { src: '/fm (1).avif', alt: 'Hot Buffet Vegetarian' },
-  { src: '/fm (2).webp', alt: 'Waffles' },
-  { src: '/fm (3).webp', alt: 'French Toast' },
-  { src: '/fm (4).webp', alt: 'Hot Table Breakfast' },
-  { src: '/fm(5).webp', alt: 'Soup of the Day' },
-  { src: '/ha.webp', alt: 'Soup Chef Choice' },
-  { src: '/fm.png', alt: 'Hot Buffet Non-Veg' },
-]
-
 const FILM_CREDITS = [
   { title: 'A Nice Indian Boy', type: 'Feature' },
   { title: 'Fire Country', type: '2nd Unit' },
@@ -198,9 +241,14 @@ const FILM_CREDITS = [
 
 const LIVE_EVENTS = [
   { title: 'Vancouver Folk Music Festival', type: '2025' },
+  { title: 'Canada Day Coquitlam', type: 'Live Event' },
+  { title: 'Italian Day Vancouver', type: 'Live Event' },
+  { title: 'Khatsahlano Street Party Vancouver', type: 'Live Event' },
+  { title: "The Sky's No Limit — She is Anything Abbotsford", type: 'Live Event' },
+  { title: 'Country Fest Maple Ridge · Pitt Meadows', type: 'Live Event' },
 ]
 
-const STEPS = ['Service', 'Cuisine', 'Meal Prefs', 'Guests', 'Date & Time', 'Location', 'Budget', 'Contact']
+const STEPS = ['Service & Cuisine', 'Meal Prefs', 'Guests', 'Date & Time', 'Location', 'Budget', 'Contact']
 
 const css = `
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
@@ -292,7 +340,6 @@ body {
 .btn-pill:active { transform: scale(0.96); }
 .btn-pill:disabled { background: #3a3a3a; cursor: not-allowed; transform: none; box-shadow: none; }
 
-/* ── UPDATED: Film Catering ghost button → white style ── */
 .btn-pill-ghost {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(255,255,255,0.08); color: #f2f2f2;
@@ -302,26 +349,35 @@ body {
   cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
 }
 .btn-pill-ghost:hover {
-  background: rgba(255,255,255,0.16);
-  border-color: rgba(255,255,255,0.65);
-  color: #ffffff;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.65);
+  color: #ffffff; transform: translateY(-3px); box-shadow: 0 8px 28px rgba(255,255,255,0.1);
 }
 .btn-pill-ghost:active { transform: scale(0.96); }
 
 /* ── HERO ── */
 .hero {
   min-height: 100vh; position: relative; overflow: hidden;
-  display: flex; align-items: center; padding: 110px 64px 72px;
+  display: flex; align-items: flex-end; padding: 110px 64px 72px;
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
-  background:
-    linear-gradient(105deg, rgba(17,17,17,0.97) 36%, rgba(17,17,17,0.62) 65%, rgba(17,17,17,0.18) 100%),
-    url('/truck.jpeg') right center / cover no-repeat;
+  background: url('/truck.jpeg') center center / cover no-repeat;
 }
-.hero-content { position: relative; z-index: 1; max-width: 620px; }
+/* Dark overlay at bottom only — lets the full truck image show through */
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(17,17,17,0.65) 0%,
+    rgba(17,17,17,0.22) 45%,
+    rgba(17,17,17,0.0) 100%
+  );
+}
+.hero-content {
+  position: relative; z-index: 1; max-width: 620px; width: 100%;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.55);
+}
 .hero-chip {
   display: inline-flex; align-items: center; gap: 10px;
   background: rgba(45,106,63,0.18); border: 1px solid rgba(74,158,100,0.3);
@@ -336,7 +392,7 @@ body {
 }
 .hero h1 em { color: #8DC63F; font-style: normal; }
 .hero-sub {
-  font-size: 1.15rem; color: #757575; line-height: 1.85;
+  font-size: 1.15rem; color: #c0c0c0; line-height: 1.85;
   max-width: 460px; margin-bottom: 44px; font-weight: 300;
 }
 .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -377,9 +433,7 @@ body {
   font-size: 1rem; color: #8DC63F; font-style: italic; font-weight: 400;
   letter-spacing: 0.04em; margin-bottom: 40px; opacity: 0.9;
 }
-.film-filter {
-  display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap;
-}
+.film-filter { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
 .ftab {
   padding: 9px 20px; border-radius: 100px; border: 1.5px solid #2e2e2e;
   background: transparent; color: #757575; font-family: 'Outfit', sans-serif;
@@ -414,10 +468,12 @@ body {
   text-transform: uppercase; color: #8DC63F;
 }
 
+/* images grid — 5 cols for category */
 .film-images-grid {
-  display: grid; grid-template-columns: repeat(7, 1fr);
-  gap: 10px; margin-top: 52px;
+  display: grid; gap: 10px; margin-top: 52px;
+  grid-template-columns: repeat(5, 1fr);
 }
+
 .film-img-item {
   border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 3;
   border: 1.5px solid rgba(45,106,63,0.2);
@@ -466,39 +522,19 @@ body {
 .opt-lbl { font-size: 0.95rem; font-weight: 400; color: #757575; }
 .opt.on .opt-lbl { color: #f2f2f2; }
 
-/* ── UPDATED: Form section labels — more readable ── */
 .flabel {
-  display: block;
-  font-size: 0.88rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #9a9a9a;
-  font-weight: 500;
-  margin-bottom: 12px;
+  display: block; font-size: 0.88rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #9a9a9a; font-weight: 500; margin-bottom: 12px;
 }
 
-/* ── UPDATED: Section divider label inside wizard ── */
 .wiz-section-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
 }
 .wiz-section-label span {
-  font-size: 0.82rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #c0c0c0;
-  font-weight: 600;
-  white-space: nowrap;
+  font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #c0c0c0; font-weight: 600; white-space: nowrap;
 }
-.wiz-section-label::before,
-.wiz-section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: #2e2e2e;
-}
+.wiz-section-label::before, .wiz-section-label::after { content: ''; flex: 1; height: 1px; background: #2e2e2e; }
 .wiz-section-label::before { display: none; }
 
 .inp {
@@ -542,7 +578,6 @@ body {
 
 /* ── PORTFOLIO ── */
 .portfolio-section { padding: 110px 64px; background: #111111; }
-
 .portfolio-about {
   display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px;
   align-items: start; margin-bottom: 72px;
@@ -556,11 +591,9 @@ body {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(45,106,63,0.12); border: 1px solid rgba(45,106,63,0.3);
   color: #8DC63F; font-size: 0.8rem; font-weight: 500;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 8px 18px; border-radius: 100px;
+  letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 18px; border-radius: 100px;
 }
 .portfolio-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #8DC63F; flex-shrink: 0; }
-
 .portfolio-meta { display: flex; flex-direction: column; gap: 24px; }
 .portfolio-meta-card {
   background: #1a1a1a; border: 1px solid #2e2e2e; border-radius: 16px; padding: 24px 28px;
@@ -576,10 +609,8 @@ body {
   padding: 4px 0; display: flex; align-items: center; gap: 10px;
 }
 .portfolio-meta-card ul li::before {
-  content: ''; width: 5px; height: 5px; border-radius: 50%;
-  background: #2d6a3f; flex-shrink: 0;
+  content: ''; width: 5px; height: 5px; border-radius: 50%; background: #2d6a3f; flex-shrink: 0;
 }
-
 .portfolio-credits-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
 .portfolio-credits-col h4 {
   font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
@@ -614,7 +645,6 @@ footer {
 .ft-brand span { color: #8DC63F; }
 .ft-desc { font-size: 0.95rem; color: #757575; line-height: 1.85; max-width: 280px; margin-bottom: 28px; font-weight: 300; }
 .ft-socials { display: flex; gap: 10px; }
-/* ── UPDATED: Social icon buttons ── */
 .ft-soc {
   width: 42px; height: 42px; border-radius: 50%;
   border: 1px solid #2e2e2e; display: flex; align-items: center; justify-content: center;
@@ -624,7 +654,6 @@ footer {
 .ft-soc:hover { border-color: #2d6a3f; color: #8DC63F; background: rgba(45,106,63,0.08); }
 .ft-soc svg { width: 18px; height: 18px; fill: currentColor; }
 .ft-col h5 { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: #8DC63F; font-weight: 500; margin-bottom: 22px; }
-/* ── UPDATED: Contact items with SVG icons ── */
 .ft-contact-item {
   display: flex; align-items: center; gap: 10px;
   font-size: 0.95rem; color: #757575; margin-bottom: 14px; font-weight: 300;
@@ -641,18 +670,17 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 1200px) {
   .gallery-grid { grid-template-columns: repeat(4, 1fr); }
-  .film-images-grid { grid-template-columns: repeat(4, 1fr); }
+  .film-images-grid { grid-template-columns: repeat(4, 1fr) !important; }
 }
 @media (max-width: 1024px) {
   .nav { padding: 0 40px; }
   .film-section, .gallery-section, .book-section, .portfolio-section, .hero { padding-left: 40px; padding-right: 40px; }
   footer { padding-left: 40px; padding-right: 40px; }
   .ft-bar { padding-left: 40px; padding-right: 40px; }
-  .film-images-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 900px) {
   .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-  .film-images-grid { grid-template-columns: repeat(3, 1fr); }
+  .film-images-grid { grid-template-columns: repeat(3, 1fr) !important; }
   .portfolio-about { grid-template-columns: 1fr; gap: 40px; }
   .portfolio-credits-wrap { grid-template-columns: 1fr; gap: 36px; }
 }
@@ -668,7 +696,7 @@ footer {
   .btn-pill, .btn-pill-ghost { width: 100%; justify-content: center; }
   .film-section, .gallery-section, .book-section, .portfolio-section { padding: 72px 20px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
-  .film-images-grid { grid-template-columns: repeat(2, 1fr); }
+  .film-images-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .wiz-body { padding: 28px 20px 24px; }
   .wiz-head { padding: 16px 20px; }
   .book-center { max-width: 100%; }
@@ -679,21 +707,21 @@ footer {
 @media (max-width: 480px) {
   .hero h1 { font-size: 2.6rem; }
   .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
-  .film-images-grid { grid-template-columns: repeat(2, 1fr); }
+  .film-images-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
 `
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [filmFilter, setFilmFilter] = useState('all')
+  const [filmFilter, setFilmFilter] = useState('hot_breakfast')
   const [navPop, setNavPop] = useState('')
   const [step, setStep] = useState(0)
   const [done, setDone] = useState(false)
   const [submitting, setSubmitting] = useState(false)
 
   const [form, setForm] = useState({
-    service: '', cuisines: [], meal: [], style: [],
-    guests: '', date: '', time: '',
+    service: '', serviceType: '', cuisines: [], meal: [], style: [],
+    guests: '', date: '', startTime: '', endTime: '',
     city: '', budget: '',
     name: '', email: '', phone: '',
   })
@@ -718,32 +746,26 @@ export default function App() {
   }))
 
   const canNext = () => {
-    if (step === 0) return !!form.service
-    if (step === 1) return form.cuisines.length > 0
-    if (step === 2) return form.meal.length > 0 && form.style.length > 0
-    if (step === 3) return parseInt(form.guests) > 0
-    if (step === 4) return !!form.date && !!form.time
-    if (step === 5) return !!form.city
-    if (step === 6) return parseInt(form.budget) > 0
-    if (step === 7) return !!form.name && !!form.email && !!form.phone
+    if (step === 0) return !!form.service && form.cuisines.length > 0
+    if (step === 1) return form.meal.length > 0 && form.style.length > 0
+    if (step === 2) return parseInt(form.guests) > 0
+    if (step === 3) return !!form.date && !!form.startTime
+    if (step === 4) return !!form.city
+    if (step === 5) return parseInt(form.budget) > 0
+    if (step === 6) return !!form.name && !!form.email && !!form.phone
     return true
   }
 
   const handleSubmit = async () => {
     setSubmitting(true)
-    await submitToSheets({ ...form, meal: form.meal.join(', '), style: form.style.join(', '), cuisines: form.cuisines.join(', ') })
+    await submitToSheets({
+      ...form,
+      meal: form.meal.join(', '),
+      style: form.style.join(', '),
+      cuisines: `${form.service}: ${form.cuisines.join(', ')}`,
+    })
     setSubmitting(false)
     setDone(true)
-  }
-
-  const Opt = ({ icon, label, val, field }) => {
-    const on = form[field] === val
-    return (
-      <div className={`opt${on ? ' on' : ''}`} onClick={() => set(field, val)}>
-        <span className="opt-ico">{icon}</span>
-        <span className="opt-lbl">{label}</span>
-      </div>
-    )
   }
 
   const OptM = ({ icon, label, val, field }) => {
@@ -757,14 +779,6 @@ export default function App() {
   }
 
   const renderMenuCards = () => {
-    if (filmFilter === 'all') {
-      return ALL_SPOTLIGHT.map((item, i) => (
-        <div key={i} className="film-card">
-          <span className="film-card-name">{item.name}</span>
-          <span className="film-card-cat">{item.cat}</span>
-        </div>
-      ))
-    }
     const section = FILM_MENU[filmFilter]
     if (!section) return null
     return (
@@ -781,6 +795,8 @@ export default function App() {
       </>
     )
   }
+
+  const currentImages = CATEGORY_IMAGES[filmFilter] || CATEGORY_IMAGES.hot_breakfast
 
   return (
     <>
@@ -813,7 +829,7 @@ export default function App() {
         <button className="drawer-cta" onClick={() => scrollTo(bookRef, 'book')}>Reserve Now</button>
       </div>
 
-      {/* HERO */}
+      {/* HERO — full truck image, text anchored to bottom */}
       <section className="hero">
         <div className="hero-bg" />
         <div className="hero-content">
@@ -822,7 +838,6 @@ export default function App() {
           <p className="hero-sub">Premium food truck catering for film productions, corporate events, and festivals. Fresh, reliable, always on cue.</p>
           <div className="hero-btns">
             <button className="btn-pill" onClick={() => scrollTo(bookRef, 'book')}>Book a Truck</button>
-            {/* UPDATED: white ghost style */}
             <button className="btn-pill-ghost" onClick={() => scrollTo(filmRef, 'film')}>Film Catering ↓</button>
           </div>
         </div>
@@ -849,6 +864,7 @@ export default function App() {
         <h2 className="sec-title">What We Bring<br />to Set</h2>
         <p className="film-tagline">"First Call to Last Shot — Exceptional Meals, Every Time."</p>
 
+        {/* Toggle tabs — no ALL button */}
         <div className="film-filter">
           {TOGGLE_TABS.map(t => (
             <button key={t.key} className={`ftab${filmFilter === t.key ? ' on' : ''}`} onClick={() => setFilmFilter(t.key)}>
@@ -860,8 +876,8 @@ export default function App() {
         <div className="film-cards">{renderMenuCards()}</div>
 
         <div className="film-images-grid">
-          {FM_IMAGES.map((img, i) => (
-            <div key={i} className="film-img-item">
+          {currentImages.map((img, i) => (
+            <div key={`${filmFilter}-${i}`} className="film-img-item">
               <img src={img.src} alt={img.alt} loading="lazy" />
             </div>
           ))}
@@ -891,6 +907,7 @@ export default function App() {
               </div>
             )}
             <div className="wiz-body">
+
               {done && (
                 <div className="confirm-wrap">
                   <div className="confirm-ring">✓</div>
@@ -898,36 +915,75 @@ export default function App() {
                   <p className="confirm-p">
                     Thank you, <strong>{form.name}</strong>.<br />
                     We'll reach out to <strong>{form.email}</strong> within 24 hours<br />
-                    to confirm your booking for <strong>{form.date}</strong> at <strong>{form.time}</strong>.
+                    to confirm your booking for <strong>{form.date}</strong>,{' '}
+                    <strong>{form.startTime}</strong>{form.endTime ? ` – ${form.endTime}` : ''}.
                   </p>
                 </div>
               )}
 
+              {/* STEP 0 — Service & Cuisine */}
               {!done && step === 0 && (
-                <><h3 className="wiz-h">Service Type</h3><p className="wiz-p">How should food be served at your event?</p>
-                  <div className="opts">
-                    <Opt icon="🍽️" label="À La Carte" val="alacarte" field="service" />
-                    <Opt icon="🥘" label="Buffet" val="buffet" field="service" />
-                  </div></>
+                <>
+                  <h3 className="wiz-h">Service Type</h3>
+                  <p className="wiz-p">How would you like food served at your event?</p>
+
+                  {/* Primary toggle — À La Carte vs Buffet */}
+                  <div style={{ display: 'flex', gap: 14, marginBottom: 36 }}>
+                    {[
+                      { val: 'alacarte', label: 'À La Carte', icon: '🍽️' },
+                      { val: 'buffet', label: 'Buffet', icon: '🥘' },
+                    ].map(opt => (
+                      <div
+                        key={opt.val}
+                        className={`opt${form.service === opt.val ? ' on' : ''}`}
+                        style={{ flex: 1, padding: '28px 16px' }}
+                        onClick={() => { set('service', opt.val); set('cuisines', []) }}
+                      >
+                        <span className="opt-ico">{opt.icon}</span>
+                        <span className="opt-lbl">{opt.label}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* À La Carte sub-options */}
+                  {form.service === 'alacarte' && (
+                    <>
+                      <div className="wiz-section-label"><span>Choose your style(s)</span></div>
+                      <div className="opts">
+                        <OptM icon="🔥" label="BBQ" val="bbq" field="cuisines" />
+                        <OptM icon="🍔" label="Burgers" val="burgers" field="cuisines" />
+                        <OptM icon="🌮" label="Tacos" val="tacos" field="cuisines" />
+                        <OptM icon="🍝" label="Pasta" val="pasta" field="cuisines" />
+                        <OptM icon="🍳" label="Breakfast" val="breakfast_alacarte" field="cuisines" />
+                        <OptM icon="🍰" label="Desserts" val="desserts" field="cuisines" />
+                      </div>
+                    </>
+                  )}
+
+                  {/* Buffet sub-options */}
+                  {form.service === 'buffet' && (
+                    <>
+                      <div className="wiz-section-label"><span>Choose your cuisine(s)</span></div>
+                      <div className="opts">
+                        <OptM icon="🥐" label="French" val="buffet_french" field="cuisines" />
+                        <OptM icon="🍁" label="North American" val="buffet_northam" field="cuisines" />
+                        <OptM icon="🍕" label="Italian" val="buffet_italian" field="cuisines" />
+                        <OptM icon="🌮" label="Mexican" val="buffet_mexican" field="cuisines" />
+                        <OptM icon="🫒" label="Greek" val="buffet_greek" field="cuisines" />
+                        <OptM icon="🍛" label="Indian" val="buffet_indian" field="cuisines" />
+                        <OptM icon="🌿" label="Vegan" val="buffet_vegan" field="cuisines" />
+                        <OptM icon="🥦" label="Vegetarian" val="buffet_vegetarian" field="cuisines" />
+                      </div>
+                    </>
+                  )}
+                </>
               )}
 
+              {/* STEP 1 — Meal Prefs */}
               {!done && step === 1 && (
-                <><h3 className="wiz-h">Cuisine</h3><p className="wiz-p">Select everything that applies — we mix and match.</p>
-                  <div className="opts">
-                    <OptM icon="🔥" label="BBQ" val="bbq" field="cuisines" />
-                    <OptM icon="🍔" label="Burgers" val="burgers" field="cuisines" />
-                    <OptM icon="🌮" label="Tacos" val="tacos" field="cuisines" />
-                    <OptM icon="🍳" label="Breakfast" val="breakfast" field="cuisines" />
-                    <OptM icon="🍰" label="Desserts" val="desserts" field="cuisines" />
-                  </div></>
-              )}
-
-              {/* UPDATED: Meal Preferences — improved section label readability */}
-              {!done && step === 2 && (
                 <>
                   <h3 className="wiz-h">Meal Preferences</h3>
                   <p className="wiz-p">Select all that apply for both sections below.</p>
-
                   <div className="wiz-section-label"><span>Meal Time</span></div>
                   <div className="opts" style={{ marginBottom: 32 }}>
                     <OptM icon="🌅" label="Breakfast" val="breakfast" field="meal" />
@@ -935,7 +991,6 @@ export default function App() {
                     <OptM icon="🌙" label="Dinner" val="dinner" field="meal" />
                     <OptM icon="🍪" label="Dessert" val="dessert" field="meal" />
                   </div>
-
                   <div className="wiz-section-label"><span>Serving Style</span></div>
                   <div className="opts">
                     <OptM icon="🥩" label="Main" val="main" field="style" />
@@ -946,26 +1001,29 @@ export default function App() {
                 </>
               )}
 
-              {!done && step === 3 && (
+              {/* STEP 2 — Guests */}
+              {!done && step === 2 && (
                 <><h3 className="wiz-h">Guest Count</h3><p className="wiz-p">How many people are you expecting?</p>
                   <label className="flabel">Number of Guests</label>
                   <input className="inp" type="number" placeholder="e.g. 75" value={form.guests} onChange={e => set('guests', e.target.value)} /></>
               )}
 
-              {/* UPDATED: Date & Time — removed duration toggle, just date + time */}
-              {!done && step === 4 && (
+              {/* STEP 3 — Date & Time */}
+              {!done && step === 3 && (
                 <>
                   <h3 className="wiz-h">Date &amp; Time</h3>
-                  <p className="wiz-p">When should we show up?</p>
-                  <label className="flabel">Event Date</label>
+                  <p className="wiz-p">When should we show up — and when do you wrap?</p>
+                  <label className="flabel" style={{ marginBottom: 12 }}>Event Date</label>
                   <input className="inp" type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ marginBottom: 20 }} />
-                  <label className="flabel">Preferred Start Time</label>
-                  <input className="inp" type="text" placeholder="e.g. 7:00 AM, after 6pm, flexible..." value={form.time} onChange={e => set('time', e.target.value)} />
+                  <label className="flabel" style={{ marginBottom: 12 }}>Preferred Start Time</label>
+                  <input className="inp" type="text" placeholder="e.g. 7:00 AM, after 6 PM, flexible…" value={form.startTime} onChange={e => set('startTime', e.target.value)} style={{ marginBottom: 20 }} />
+                  <label className="flabel" style={{ marginBottom: 12 }}>Preferred End Time</label>
+                  <input className="inp" type="text" placeholder="e.g. 10:00 PM, by midnight, flexible…" value={form.endTime} onChange={e => set('endTime', e.target.value)} />
                 </>
               )}
 
-              {/* UPDATED: Location — removed Province, city only */}
-              {!done && step === 5 && (
+              {/* STEP 4 — Location */}
+              {!done && step === 4 && (
                 <>
                   <h3 className="wiz-h">Location</h3>
                   <p className="wiz-p">We operate across British Columbia.</p>
@@ -974,7 +1032,8 @@ export default function App() {
                 </>
               )}
 
-              {!done && step === 6 && (
+              {/* STEP 5 — Budget */}
+              {!done && step === 5 && (
                 <><h3 className="wiz-h">Budget</h3><p className="wiz-p">What's your approximate budget for this event?</p>
                   <label className="flabel">Estimated Budget (CAD)</label>
                   <div style={{ position: 'relative' }}>
@@ -983,7 +1042,8 @@ export default function App() {
                   </div></>
               )}
 
-              {!done && step === 7 && (
+              {/* STEP 6 — Contact */}
+              {!done && step === 6 && (
                 <><h3 className="wiz-h">Contact Info</h3><p className="wiz-p">We'll use these to confirm your booking.</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                     <div><label className="flabel">Full Name</label><input className="inp" placeholder="Jane Smith" value={form.name} onChange={e => set('name', e.target.value)} /></div>
@@ -1010,7 +1070,6 @@ export default function App() {
       <section className="portfolio-section" ref={portfolioRef}>
         <div className="sec-tag"><div className="sec-tag-line" /><span>Portfolio</span></div>
         <h2 className="sec-title">Our Story &amp;<br />Credits</h2>
-
         <div className="portfolio-about">
           <div className="portfolio-about-text">
             <p>
@@ -1020,7 +1079,7 @@ export default function App() {
               specialty culinary experiences.
             </p>
             <p>
-              Established in 2022, we've quickly built a strong reputation for delivering
+              Established quitely recently, we've quickly built a strong reputation for delivering
               high-quality food service under the fast-paced demands of film sets and large
               events — always on time, always on standard.
             </p>
@@ -1033,7 +1092,7 @@ export default function App() {
           <div className="portfolio-meta">
             <div className="portfolio-meta-card">
               <div className="portfolio-meta-label">Where We Operate</div>
-              <ul><li>Greater Vancouver Area</li><li>Vancouver Island</li></ul>
+              <ul><li>In Vancouver</li><li>Throughout British Columbia</li></ul>
             </div>
             <div className="portfolio-meta-card">
               <div className="portfolio-meta-label">Union Standards</div>
@@ -1041,7 +1100,6 @@ export default function App() {
             </div>
           </div>
         </div>
-
         <div className="portfolio-credits-wrap">
           <div className="portfolio-credits-col">
             <h4>🎬 Film &amp; Television Credits</h4>
@@ -1068,40 +1126,27 @@ export default function App() {
         </div>
       </section>
 
-      {/* FOOTER — UPDATED: Instagram + Facebook only, SVG icons for contact */}
+      {/* FOOTER */}
       <footer>
         <div>
           <span className="ft-brand">Just<span>In</span>Time Catering</span>
           <div className="ft-socials">
-            {/* Instagram — REPLACE href with your Instagram URL */}
             <a href="https://www.instagram.com/justintimemobilecateringbc?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="ft-soc" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-              </svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
             </a>
-            {/* Facebook — REPLACE href with your Facebook URL */}
-            <a href="http://www.justintime.business/" target="_blank" rel="noopener noreferrer" className="ft-soc" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
+            <a href="http://www.justintime.business/" target="_blank" rel="noopener noreferrer" className="ft-soc" aria-label="Website">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
             </a>
           </div>
         </div>
         <div className="ft-col">
           <h5>Contact</h5>
-          {/* Email with SVG icon */}
           <a href="mailto:justintimefundining@gmail.com" className="ft-contact-item">
-            <svg viewBox="0 0 24 24">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-              <polyline points="22,6 12,13 2,6" />
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
             justintimefundining@gmail.com
           </a>
-          {/* Phone with SVG icon */}
           <a href="tel:+12368630707" className="ft-contact-item">
-            <svg viewBox="0 0 24 24">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l1.27-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l1.27-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
             236-863-0707
           </a>
         </div>
