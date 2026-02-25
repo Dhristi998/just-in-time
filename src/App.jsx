@@ -357,32 +357,39 @@ body {
 /* ── HERO ── */
 .hero {
   min-height: 100vh; position: relative; overflow: hidden;
-  display: flex; align-items: flex-end; padding: 110px 64px 72px;
+  display: flex; align-items: flex-end;
+  padding: 72px 64px 72px;
+  margin-top: 0;
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
   background: url('/truck.jpeg') center center / cover no-repeat;
 }
-/* Dark overlay at bottom only — lets the full truck image show through */
 .hero-bg::after {
   content: '';
   position: absolute; inset: 0;
   background: linear-gradient(
     to top,
-    rgba(17,17,17,0.65) 0%,
-    rgba(17,17,17,0.22) 45%,
-    rgba(17,17,17,0.0) 100%
+    rgba(8,8,8,0.95) 0%,
+    rgba(8,8,8,0.72) 30%,
+    rgba(8,8,8,0.28) 60%,
+    rgba(8,8,8,0.0)  100%
   );
 }
 .hero-content {
   position: relative; z-index: 1; max-width: 620px; width: 100%;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.55);
+  padding-top: 32px;
 }
-
+.hero h1 {
+  font-size: clamp(3rem, 5.5vw, 5rem); font-weight: 700; line-height: 1.08;
+  color: #ffffff; margin-bottom: 22px; letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 6px 24px rgba(0,0,0,0.6);
+}
 .hero h1 em { color: #8DC63F; font-style: normal; }
 .hero-sub {
-  font-size: 1.15rem; color: #c0c0c0; line-height: 1.85;
-  max-width: 460px; margin-bottom: 44px; font-weight: 300;
+  font-size: 1.1rem; color: #e8e8e8; line-height: 1.85;
+  max-width: 460px; margin-bottom: 44px; font-weight: 400;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9), 0 3px 16px rgba(0,0,0,0.8);
 }
 .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
 
@@ -680,7 +687,17 @@ footer {
   .burger { display: flex; }
   .nav-logo-wrap { position: absolute; left: 50%; transform: translateX(-50%); }
   .drawer { top: 68px; }
-  .hero { padding: 96px 20px 60px; min-height: 90vh; }
+  .hero { padding: 20px 20px 52px; min-height: 100svh; }
+  .hero-bg { background-image: url('/new (17).png'); background-position: center center; }
+  .hero-bg::after {
+    background: linear-gradient(
+      to top,
+      rgba(8,8,8,0.97) 0%,
+      rgba(8,8,8,0.78) 35%,
+      rgba(8,8,8,0.35) 60%,
+      rgba(8,8,8,0.05) 100%
+    );
+  }
   .hero-btns { flex-direction: column; }
   .btn-pill, .btn-pill-ghost { width: 100%; justify-content: center; }
   .film-section, .gallery-section, .book-section, .portfolio-section { padding: 72px 20px; }
@@ -1000,6 +1017,7 @@ export default function App() {
               {!done && step === 3 && (
                 <>
                   <h3 className="wiz-h">Date &amp; Time</h3>
+                  <p className="wiz-p">When should we show up — and when do you wrap?</p>
                   <label className="flabel" style={{ marginBottom: 12 }}>Event Date</label>
                   <input className="inp" type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ marginBottom: 20 }} />
                   <label className="flabel" style={{ marginBottom: 12 }}>Preferred Start Time</label>
