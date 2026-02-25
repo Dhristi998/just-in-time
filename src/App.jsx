@@ -1032,7 +1032,7 @@ export default function App() {
                 <>
                   <h3 className="wiz-h">Location</h3>
                   <p className="wiz-p">We operate across British Columbia.</p>
-                  <label className="flabel">City</label>
+                  <label className="flabel">Location</label>
                   <input className="inp" placeholder="e.g. Vancouver, Surrey, Burnaby..." value={form.city} onChange={e => set('city', e.target.value)} />
                 </>
               )}
