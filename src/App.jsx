@@ -538,6 +538,7 @@ body {
   border-radius: 12px; padding: 16px 18px; color: #f2f2f2;
   font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 300;
   outline: none; transition: border-color 0.2s; appearance: none;
+color-scheme: dark;
 }
 .inp:focus { border-color: #4a9e64; }
 .inp::placeholder { color: #404040; }
