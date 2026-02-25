@@ -378,18 +378,7 @@ body {
   position: relative; z-index: 1; max-width: 620px; width: 100%;
   text-shadow: 0 2px 16px rgba(0,0,0,0.55);
 }
-.hero-chip {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: rgba(45,106,63,0.18); border: 1px solid rgba(74,158,100,0.3);
-  color: #8DC63F; font-size: 0.82rem; font-weight: 500;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 8px 18px; border-radius: 100px; margin-bottom: 30px;
-}
-.hero-chip-dot { width: 7px; height: 7px; border-radius: 50%; background: #8DC63F; }
-.hero h1 {
-  font-size: clamp(3rem, 5.5vw, 5rem); font-weight: 700; line-height: 1.08;
-  color: #f2f2f2; margin-bottom: 22px; letter-spacing: -0.02em;
-}
+
 .hero h1 em { color: #8DC63F; font-style: normal; }
 .hero-sub {
   font-size: 1.15rem; color: #c0c0c0; line-height: 1.85;
@@ -833,7 +822,6 @@ export default function App() {
       <section className="hero">
         <div className="hero-bg" />
         <div className="hero-content">
-          <div className="hero-chip"><div className="hero-chip-dot" />Film &amp; Event Catering · Canada</div>
           <h1>Fueling Crews<br />&amp; <em>Events,</em><br />Just In Time</h1>
           <p className="hero-sub">Premium food truck catering for film productions, corporate events, and festivals. Fresh, reliable, always on cue.</p>
           <div className="hero-btns">
