@@ -1079,15 +1079,10 @@ export default function App() {
         <div className="portfolio-about">
           <div className="portfolio-about-text">
             <p>
-              Just-In Time Catering and Events Ltd. is a professional mobile catering service
-              specializing in the Hollywood North film and television industry, with expanded
-              operations supporting large-scale events such as music festivals, weddings, and
-              specialty culinary experiences.
+              Just-In Time Catering and Events Ltd. is a premier mobile catering company proudly serving the dynamic  Films and television industry On location catering in Vancouver and throughout British Columbia.  We have expanded our expertise to support large-scale productions and events, including music festivals, weddings, and curated specialty culinary experiences.
             </p>
             <p>
-              Established quitely recently, we've quickly built a strong reputation for delivering
-              high-quality food service under the fast-paced demands of film sets and large
-              events — always on time, always on standard.
+              We have rapidly established a strong reputation for delivering exceptional, high-quality food service tailored to the fast-paced, high-demand environments of film sets and major events. Our commitment to professionalism, efficiency, and culinary excellence ensures a seamless and consistently outstanding catering experience.
             </p>
             <div className="portfolio-badge-row">
               <span className="portfolio-badge"><span className="portfolio-badge-dot" />Teamsters Local 155</span>
@@ -1098,7 +1093,7 @@ export default function App() {
           <div className="portfolio-meta">
             <div className="portfolio-meta-card">
               <div className="portfolio-meta-label">Where We Operate</div>
-              <ul><li>In Vancouver</li><li>Throughout British Columbia</li></ul>
+              <ul><li>Vancouver</li><li>Throughout British Columbia</li></ul>
             </div>
             <div className="portfolio-meta-card">
               <div className="portfolio-meta-label">Union Standards</div>
