@@ -241,11 +241,11 @@ const FILM_CREDITS = [
 
 const LIVE_EVENTS = [
   { title: 'Vancouver Folk Music Festival', type: '2025' },
-  { title: 'Canada Day Coquitlam', type: 'Live Event' },
-  { title: 'Italian Day Vancouver', type: 'Live Event' },
-  { title: 'Khatsahlano Street Party Vancouver', type: 'Live Event' },
-  { title: "The Sky's No Limit — She is Anything Abbotsford", type: 'Live Event' },
-  { title: 'Country Fest Maple Ridge · Pitt Meadows', type: 'Live Event' },
+  { title: 'Canada Day Coquitlam', type: 'Event' },
+  { title: 'Italian Day Vancouver', type: 'Event' },
+  { title: 'Khatsahlano Street Party Vancouver', type: 'Event' },
+  { title: "The Sky's No Limit — She is Anything Abbotsford", type: 'Event' },
+  { title: 'Country Fest Maple Ridge · Pitt Meadows', type: 'Event' },
 ]
 
 const STEPS = ['Service & Cuisine', 'Meal Prefs', 'Guests', 'Date & Time', 'Location', 'Budget', 'Contact']
@@ -538,7 +538,7 @@ body {
   border-radius: 12px; padding: 16px 18px; color: #f2f2f2;
   font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 300;
   outline: none; transition: border-color 0.2s; appearance: none;
-color-scheme: dark;
+  color-scheme: dark;
 }
 .inp:focus { border-color: #4a9e64; }
 .inp::placeholder { color: #404040; }
@@ -1033,7 +1033,7 @@ export default function App() {
                 <>
                   <h3 className="wiz-h">Location</h3>
                   <p className="wiz-p">We operate across British Columbia.</p>
-                  <label className="flabel">Location</label>
+                  <label className="flabel">City</label>
                   <input className="inp" placeholder="e.g. Vancouver, Surrey, Burnaby..." value={form.city} onChange={e => set('city', e.target.value)} />
                 </>
               )}
@@ -1079,25 +1079,30 @@ export default function App() {
         <div className="portfolio-about">
           <div className="portfolio-about-text">
             <p>
-              Just-In Time Catering and Events Ltd. is a premier mobile catering company proudly serving the dynamic  Films and television industry On location catering in Vancouver and throughout British Columbia.  We have expanded our expertise to support large-scale productions and events, including music festivals, weddings, and curated specialty culinary experiences.
+              Just-In Time Catering and Events Ltd. is a professional mobile catering service
+              specializing in the Hollywood North film and television industry, with expanded
+              operations supporting large-scale events such as music festivals, weddings, and
+              specialty culinary experiences.
             </p>
             <p>
-              We have rapidly established a strong reputation for delivering exceptional, high-quality food service tailored to the fast-paced, high-demand environments of film sets and major events. Our commitment to professionalism, efficiency, and culinary excellence ensures a seamless and consistently outstanding catering experience.
+              Established quitely recently, we've quickly built a strong reputation for delivering
+              high-quality food service under the fast-paced demands of film sets and large
+              events — always on time, always on standard.
             </p>
-            <div className="portfolio-badge-row">
-              <span className="portfolio-badge"><span className="portfolio-badge-dot" />Teamsters Local 155</span>
-              <span className="portfolio-badge"><span className="portfolio-badge-dot" />ACFC Member</span>
-              <span className="portfolio-badge"><span className="portfolio-badge-dot" />Est. 2022</span>
-            </div>
+
           </div>
           <div className="portfolio-meta">
             <div className="portfolio-meta-card">
               <div className="portfolio-meta-label">Where We Operate</div>
-              <ul><li>Vancouver</li><li>Throughout British Columbia</li></ul>
+              <ul><li>In Vancouver</li><li>Throughout British Columbia</li></ul>
             </div>
             <div className="portfolio-meta-card">
               <div className="portfolio-meta-label">Union Standards</div>
               <p>We operate with full union standards, reliability, and production-level efficiency — trusted by productions across BC.</p>
+            </div>
+            <div className="portfolio-badge-row">
+              <span className="portfolio-badge"><span className="portfolio-badge-dot" />Teamsters Local 155</span>
+              <span className="portfolio-badge"><span className="portfolio-badge-dot" />ACFC Member</span>
             </div>
           </div>
         </div>
