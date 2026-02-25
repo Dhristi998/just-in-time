@@ -1012,7 +1012,6 @@ export default function App() {
               {!done && step === 3 && (
                 <>
                   <h3 className="wiz-h">Date &amp; Time</h3>
-                  <p className="wiz-p">When should we show up — and when do you wrap?</p>
                   <label className="flabel" style={{ marginBottom: 12 }}>Event Date</label>
                   <input className="inp" type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ marginBottom: 20 }} />
                   <label className="flabel" style={{ marginBottom: 12 }}>Preferred Start Time</label>
