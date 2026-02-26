@@ -1094,7 +1094,7 @@ export default function App() {
           <div className="portfolio-meta">
             <div className="portfolio-meta-card">
               <div className="portfolio-meta-label">Where We Operate</div>
-              <ul><li>In Vancouver</li><li>Throughout British Columbia</li></ul>
+              <ul><li>Vancouver</li><li>Throughout British Columbia</li></ul>
             </div>
             <div className="portfolio-meta-card">
               <div className="portfolio-meta-label">Union Standards</div>
