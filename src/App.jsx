@@ -124,7 +124,6 @@ const FILM_MENU = {
   },
 }
 
-// ── Per-category image sets (5 images each, from /fm/<folder>/) ──
 const CATEGORY_IMAGES = {
   hot_breakfast: [
     { src: '/fm/breakfast (1).png', alt: 'Breakfast 1' },
@@ -190,7 +189,6 @@ const CATEGORY_IMAGES = {
   ],
 }
 
-// ── Toggle tabs — no "All" tab ──
 const TOGGLE_TABS = [
   { key: 'hot_breakfast', label: 'Hot Breakfast' },
   { key: 'bakery', label: 'Bakery & Breads' },
@@ -439,12 +437,23 @@ body {
 .ftab.on { background: #8DC63F; border-color: #8DC63F; color: #1a1a1a; font-weight: 600; }
 .ftab:not(.on):hover { border-color: #757575; color: #b0b0b0; }
 
-.film-cards { display: flex; flex-direction: column; gap: 4px; }
+/* ── FILM MENU ITEMS — 2-col grid on desktop ── */
+.film-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  align-items: stretch;
+}
+/* section header spans full width */
+.film-cards .film-section-header {
+  grid-column: 1 / -1;
+}
 .film-card {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
   padding: 16px 22px; border-radius: 12px;
   background: #1a1a1a; border: 1px solid #2e2e2e;
   transition: border-color 0.2s, background 0.2s;
+  min-height: 56px;
 }
 .film-card:hover { border-color: rgba(45,106,63,0.4); background: rgba(34,34,34,0.95); }
 .film-card-name { font-size: 0.97rem; font-weight: 400; color: #b0b0b0; line-height: 1.5; }
@@ -464,10 +473,12 @@ body {
   text-transform: uppercase; color: #8DC63F;
 }
 
-/* images grid — 5 cols for category */
+/* Bottom images grid — 5 cols for category */
 .film-images-grid {
-  display: grid; gap: 10px; margin-top: 52px;
+  display: grid;
   grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 28px;
 }
 
 .film-img-item {
@@ -667,7 +678,6 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 1200px) {
   .gallery-grid { grid-template-columns: repeat(4, 1fr); }
-  .film-images-grid { grid-template-columns: repeat(4, 1fr) !important; }
 }
 @media (max-width: 1024px) {
   .nav { padding: 0 40px; }
@@ -677,9 +687,9 @@ footer {
 }
 @media (max-width: 900px) {
   .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-  .film-images-grid { grid-template-columns: repeat(3, 1fr) !important; }
   .portfolio-about { grid-template-columns: 1fr; gap: 40px; }
   .portfolio-credits-wrap { grid-template-columns: 1fr; gap: 36px; }
+  .film-images-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 768px) {
   html { font-size: 16px; }
@@ -703,7 +713,8 @@ footer {
   .btn-pill, .btn-pill-ghost { width: 100%; justify-content: center; }
   .film-section, .gallery-section, .book-section, .portfolio-section { padding: 72px 20px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
-  .film-images-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .film-cards { grid-template-columns: 1fr; }
+  .film-images-grid { grid-template-columns: repeat(2, 1fr); }
   .wiz-body { padding: 28px 20px 24px; }
   .wiz-head { padding: 16px 20px; }
   .book-center { max-width: 100%; }
@@ -714,7 +725,7 @@ footer {
 @media (max-width: 480px) {
   .hero h1 { font-size: 2.6rem; }
   .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
-  .film-images-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .film-images-grid { grid-template-columns: repeat(2, 1fr); }
 }
 `
 
@@ -822,6 +833,7 @@ export default function App() {
           <div className="nav-logo-text">Just<span>In</span>Time Catering</div>
         </div>
         <div className="nav-right">
+          <button className={`nav-link${navPop === 'gallery' ? ' pop' : ''}`} onClick={() => scrollTo(galleryRef, 'gallery')}>Gallery</button>
           <button className={`nav-link${navPop === 'film' ? ' pop' : ''}`} onClick={() => scrollTo(filmRef, 'film')}>Film Catering</button>
           <button className={`nav-link${navPop === 'book' ? ' pop' : ''}`} onClick={() => scrollTo(bookRef, 'book')}>Book a Truck</button>
           <button className={`nav-link${navPop === 'portfolio' ? ' pop' : ''}`} onClick={() => scrollTo(portfolioRef, 'portfolio')}>Portfolio</button>
@@ -830,13 +842,14 @@ export default function App() {
 
       {/* MOBILE DRAWER */}
       <div className={`drawer${menuOpen ? ' open' : ''}`}>
+        <button className="drawer-link" onClick={() => scrollTo(galleryRef, 'gallery')}>Gallery</button>
         <button className="drawer-link" onClick={() => scrollTo(filmRef, 'film')}>Film Catering</button>
         <button className="drawer-link" onClick={() => scrollTo(portfolioRef, 'portfolio')}>Portfolio</button>
         <button className="drawer-link" onClick={() => scrollTo(bookRef, 'book')}>Book a Truck</button>
         <button className="drawer-cta" onClick={() => scrollTo(bookRef, 'book')}>Reserve Now</button>
       </div>
 
-      {/* HERO — full truck image, text anchored to bottom */}
+      {/* HERO */}
       <section className="hero">
         <div className="hero-bg" />
         <div className="hero-content">
@@ -870,7 +883,6 @@ export default function App() {
         <h2 className="sec-title">What We Bring<br />to Set</h2>
         <p className="film-tagline">"First Call to Last Shot — Exceptional Meals, Every Time."</p>
 
-        {/* Toggle tabs — no ALL button */}
         <div className="film-filter">
           {TOGGLE_TABS.map(t => (
             <button key={t.key} className={`ftab${filmFilter === t.key ? ' on' : ''}`} onClick={() => setFilmFilter(t.key)}>
@@ -879,8 +891,8 @@ export default function App() {
           ))}
         </div>
 
+        {/* Menu cards in 2-col grid, images below */}
         <div className="film-cards">{renderMenuCards()}</div>
-
         <div className="film-images-grid">
           {currentImages.map((img, i) => (
             <div key={`${filmFilter}-${i}`} className="film-img-item">
@@ -933,7 +945,6 @@ export default function App() {
                   <h3 className="wiz-h">Service Type</h3>
                   <p className="wiz-p">How would you like food served at your event?</p>
 
-                  {/* Primary toggle — À La Carte vs Buffet */}
                   <div style={{ display: 'flex', gap: 14, marginBottom: 36 }}>
                     {[
                       { val: 'alacarte', label: 'À La Carte', icon: '🍽️' },
@@ -951,7 +962,6 @@ export default function App() {
                     ))}
                   </div>
 
-                  {/* À La Carte sub-options */}
                   {form.service === 'alacarte' && (
                     <>
                       <div className="wiz-section-label"><span>Choose your style(s)</span></div>
@@ -961,12 +971,10 @@ export default function App() {
                         <OptM icon="🌮" label="Tacos" val="tacos" field="cuisines" />
                         <OptM icon="🍝" label="Pasta" val="pasta" field="cuisines" />
                         <OptM icon="🍳" label="Breakfast" val="breakfast_alacarte" field="cuisines" />
-                        <OptM icon="🍰" label="Desserts" val="desserts" field="cuisines" />
                       </div>
                     </>
                   )}
 
-                  {/* Buffet sub-options */}
                   {form.service === 'buffet' && (
                     <>
                       <div className="wiz-section-label"><span>Choose your cuisine(s)</span></div>
@@ -995,7 +1003,6 @@ export default function App() {
                     <OptM icon="🌅" label="Breakfast" val="breakfast" field="meal" />
                     <OptM icon="☀️" label="Lunch" val="lunch" field="meal" />
                     <OptM icon="🌙" label="Dinner" val="dinner" field="meal" />
-                    <OptM icon="🍪" label="Dessert" val="dessert" field="meal" />
                   </div>
                   <div className="wiz-section-label"><span>Serving Style</span></div>
                   <div className="opts">
@@ -1089,7 +1096,6 @@ export default function App() {
               high-quality food service under the fast-paced demands of film sets and large
               events — always on time, always on standard.
             </p>
-
           </div>
           <div className="portfolio-meta">
             <div className="portfolio-meta-card">
