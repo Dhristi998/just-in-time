@@ -1092,7 +1092,7 @@ export default function App() {
               specialty culinary experiences.
             </p>
             <p>
-              Established quietly recently, we've quickly built a strong reputation for delivering
+              Established quiet recently, we've quickly built a strong reputation for delivering
               high-quality food service under the fast-paced demands of film sets and large
               events — always on time, always on standard.
             </p>
