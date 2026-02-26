@@ -866,7 +866,7 @@ export default function App() {
       <section className="gallery-section" ref={galleryRef}>
         <div className="sec-tag"><div className="sec-tag-line" /><span>Gallery</span></div>
         <h2 className="sec-title">From the Field</h2>
-        <p className="sec-sub">A look at what we bring to every set, event, and festival — real food, real moments.</p>
+        <p className="sec-sub">A look at what we bring to every set, event, and festival, real food, real moments.</p>
         <div className="gallery-grid">
           {GALLERY.map(img => (
             <div key={img.id} className="gallery-item">
@@ -881,7 +881,7 @@ export default function App() {
       <section className="film-section" ref={filmRef}>
         <div className="sec-tag"><div className="sec-tag-line" /><span>Film Catering</span></div>
         <h2 className="sec-title">What We Bring<br />to Set</h2>
-        <p className="film-tagline">"First Call to Last Shot — Exceptional Meals, Every Time."</p>
+        <p className="film-tagline">"First Call to Last Shot, Exceptional Meals, Every Time."</p>
 
         <div className="film-filter">
           {TOGGLE_TABS.map(t => (
@@ -1025,7 +1025,7 @@ export default function App() {
               {!done && step === 3 && (
                 <>
                   <h3 className="wiz-h">Date &amp; Time</h3>
-                  <p className="wiz-p">When should we show up — and when do you wrap?</p>
+                  <p className="wiz-p">When should we show up and when do you wrap?</p>
                   <label className="flabel" style={{ marginBottom: 12 }}>Event Date</label>
                   <input className="inp" type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ marginBottom: 20 }} />
                   <label className="flabel" style={{ marginBottom: 12 }}>Preferred Start Time</label>
@@ -1094,7 +1094,7 @@ export default function App() {
             <p>
               Established quiet recently, we've quickly built a strong reputation for delivering
               high-quality food service under the fast-paced demands of film sets and large
-              events — always on time, always on standard.
+              events, always on time, always on standard.
             </p>
           </div>
           <div className="portfolio-meta">
@@ -1104,7 +1104,7 @@ export default function App() {
             </div>
             <div className="portfolio-meta-card">
               <div className="portfolio-meta-label">Union Standards</div>
-              <p>We operate with full union standards, reliability, and production-level efficiency — trusted by productions across BC.</p>
+              <p>We operate with full union standards, reliability, and production-level efficiency, trusted by productions across BC.</p>
             </div>
             <div className="portfolio-badge-row">
               <span className="portfolio-badge"><span className="portfolio-badge-dot" />Teamsters Local 155</span>
