@@ -1171,7 +1171,7 @@ export default function App() {
         </div>
       </footer>
       <div className="ft-bar">
-        <p>© 2026 Just In Time Catering Inc. All rights reserved.</p>
+        <p>© 2026 Shine Digital. All rights reserved.</p>
         <p>Vancouver, Canada</p>
       </div>
     </>
